@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* Vapor UI 팝업 컴포넌트(Dialog, Popover 등)의 z-index 스태킹 컨텍스트 */
+.root {
+  isolation: isolate;
+}
