@@ -8,6 +8,7 @@ import {
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { places } from '../../data/places'
+import AudioPlayer from '../../components/AudioPlayer'
 
 function formatTime(seconds: number): string {
   const m = Math.floor(seconds / 60)
@@ -111,84 +112,7 @@ export default function MapListenPage() {
           <Box className="w-55.25 h-60.25 bg-(--vapor-color-gray-100) rounded-sm" />
         </div>
 
-        {/* 오디오 플레이어 ---- 수정 필요*/}
-        <div className="px-5 ">
-          {/* 진행 바 */}
-          <div className="flex items-center gap-2 py-1">
-            <Text
-              $css={{
-                fontFamily: 'Oxygen, sans-serif',
-                fontSize: '12px',
-                color: '#480000',
-                flexShrink: '0',
-              }}
-            >
-              {formatTime(currentTime)}
-            </Text>
-            <div
-              onClick={handleSeek}
-              style={{
-                flex: 1,
-                height: '4px',
-                backgroundColor: '#D9D9D9',
-                borderRadius: '2px',
-                overflow: 'hidden',
-                cursor: 'pointer',
-              }}
-            >
-              <div
-                style={{
-                  width: `${progress}%`,
-                  height: '100%',
-                  backgroundColor: '#E50048',
-                  borderRadius: '2px',
-                  transition: 'width 0.1s linear',
-                }}
-              />
-            </div>
-            <Text
-              $css={{
-                fontFamily: 'Oxygen, sans-serif',
-                fontSize: '12px',
-                color: '#480000',
-                flexShrink: '0',
-              }}
-            >
-              {formatTime(duration)}
-            </Text>
-          </div>
-
-          {/* 컨트롤 버튼 */}
-          <div className="flex items-center justify-center w-full gap-5 py-4">
-            <IconButton
-              variant="ghost"
-              colorPalette="secondary"
-              shape="circle"
-              onClick={handleBack}
-              $css={{ width: '40px', height: '40px' }}
-            >
-              <BackPageOutlineIcon />
-            </IconButton>
-            <IconButton
-              variant="fill"
-              colorPalette="danger"
-              shape="circle"
-              onClick={togglePlay}
-              $css={{ width: '64px', height: '64px' }}
-            >
-              {isPlaying ? <PauseOutlineIcon /> : <PlayOutlineIcon />}
-            </IconButton>
-            <IconButton
-              variant="ghost"
-              colorPalette="secondary"
-              shape="circle"
-              onClick={handleForward}
-              $css={{ width: '40px', height: '40px' }}
-            >
-              <ForwardPageOutlineIcon />
-            </IconButton>
-          </div>
-        </div>
+        <AudioPlayer src={audioUrl || ''} />
 
         <VStack className="gap-6">
           {/* 나레이션 - 실시간 자막 싱크 */}

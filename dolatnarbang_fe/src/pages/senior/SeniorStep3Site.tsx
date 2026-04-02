@@ -21,7 +21,7 @@ interface Props {
   currentStep: number
   defaultValue: string
   onBack: () => void
-  onNext: (siteId: string) => void
+  onNext: (siteId: string, siteName: string) => void
 }
 
 export default function SeniorStep3Site({
@@ -119,7 +119,10 @@ export default function SeniorStep3Site({
             color: 'white',
           }}
           disabled={!selectedId}
-          onClick={() => onNext(selectedId)}
+          onClick={() => {
+            const site = SITES.find((s) => s.id === selectedId)!
+            onNext(selectedId, site.name)
+          }}
         >
           다음
         </Button>
