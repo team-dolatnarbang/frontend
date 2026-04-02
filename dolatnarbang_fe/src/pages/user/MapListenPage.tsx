@@ -7,7 +7,7 @@ import {
 } from '@vapor-ui/icons'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { places, type NarrationLine } from '../../data/places'
+import { places } from '../../data/places'
 
 function formatTime(seconds: number): string {
   const m = Math.floor(seconds / 60)
@@ -15,41 +15,41 @@ function formatTime(seconds: number): string {
   return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
 }
 
-function getActiveIndex(narration: NarrationLine[], currentTime: number): number {
-  return narration.findIndex((line) => currentTime >= line.start && currentTime < line.end)
-}
+// function getActiveIndex(narration: NarrationLine[], currentTime: number): number {
+//   return narration.findIndex((line) => currentTime >= line.start && currentTime < line.end)
+// }
 
 export default function MapListenPage() {
   const { siteId } = useParams()
   const navigate = useNavigate()
 
   const audioRef = useRef<HTMLAudioElement>(null)
-  const activeLineRef = useRef<HTMLDivElement>(null)
+  // const activeLineRef = useRef<HTMLDivElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
 
-  const place = places.find((p) => String(p.id) === siteId)
+  const place = places.find((p) => String(p.order) === siteId)
 
-  const activeLineIndex = place ? getActiveIndex(place.narration, currentTime) : -1
+  // const activeLineIndex = place ? getActiveIndex(place.narration, currentTime) : -1
 
   useEffect(() => {
     if (!place) navigate('/map', { replace: true })
   }, [place, navigate])
 
-  useEffect(() => {
-    if (activeLineIndex >= 0) {
-      activeLineRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-    }
-  }, [activeLineIndex])
+  // useEffect(() => {
+  //   if (activeLineIndex >= 0) {
+  //     activeLineRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  //   }
+  // }, [activeLineIndex])
 
   if (!place) return null
 
-  const currentIndex = places.findIndex((p) => String(p.id) === siteId)
+  const currentIndex = places.findIndex((p) => String(p.order) === siteId)
   const isLastPlace = currentIndex === places.length - 1
   const nextPlace = places[currentIndex + 1]
 
-  const audioUrl = place.audioUrl
+  const audioUrl = place.elderStory.audioUrl
 
   const togglePlay = () => {
     const audio = audioRef.current
@@ -98,11 +98,11 @@ export default function MapListenPage() {
             shape="pill"
             className="px-1.75 py-0.5 outline-1 outline-(--vapor-color-green-400) bg-(--vapor-color-green-050) text-(--vapor-color-green-700)"
           >
-            {place.location}
+            {place.detailRegion}
           </Badge>
           <VStack className="gap-1">
-            <Text typography="heading3">{place.memory.title}</Text>
-            <Text typography="heading6">{place.memory.narrator}의 기억</Text>
+            <Text typography="heading3">{place.title}</Text>
+            <Text typography="heading6">{place.subTitle}</Text>
           </VStack>
         </VStack>
 
@@ -195,9 +195,7 @@ export default function MapListenPage() {
           <VStack className="rounded-lg bg-(--vapor-color-gray-100) py-4 px-4">
             <Text className="text-(--vapor-color-hondi-500) font-bold">나레이션</Text>
             <Text className="pt-4 text-(--vapor-color-gray-600)">
-              나 그때 열 살이었어. 관덕정 앞에 사람이 엄청 모였거든. 3·1절이니까. 근데 갑자기 말이
-              달려오는 거야. 크고 무서운 말. 사람들이 막 피하고 난리가 났지. 그러다 탕, 소리가 났어
-              사람들이 쓰러지는 거 봤어. 내 옆에 있던 아줌마가 나를 확 안고 엎드렸거든.
+              {place.elderStory.Longtext}
             </Text>
           </VStack>
 
@@ -205,15 +203,13 @@ export default function MapListenPage() {
           <VStack className="rounded-lg bg-(--vapor-color-gray-100) py-4 px-4">
             <Text className="text-(--vapor-color-hondi-500) font-bold">사건 기록</Text>
             <HStack className="gap-2 items-center pt-4">
-              <Text typography="heading4">관덕정</Text>
+              <Text typography="heading4">{place.acInfoTitle}</Text>
               <Text typography="subtitle1" className="text-(--vapor-color-gray-400)">
-                1947.03.31
+                {place.acInfoDate}
               </Text>
             </HStack>
             <Text className="pt-2 text-(--vapor-color-gray-600)">
-              1947년 3·1절, 기마경찰의 말발굽에 어린이가 치였다. 경찰의 발포로 주민 6명이 숨졌고,
-              그것이 4·3의 도화선이 되었습니. 이후 이곳은 무장대 사령관 이덕구의 시신이 효수된
-              장소로 역사에 남았습니다.
+              {place.acInfoText}
             </Text>
           </VStack>
 
@@ -232,7 +228,7 @@ export default function MapListenPage() {
         <Button
           onClick={() =>
             isLastPlace
-              ? navigate('/CompletePage') // 마지막이면 /map
+              ? navigate('/complete') // 마지막이면 /map
               : nextPlace && navigate(`/map/${nextPlace.id}`) //  다음 장소
           }
           $css={{
