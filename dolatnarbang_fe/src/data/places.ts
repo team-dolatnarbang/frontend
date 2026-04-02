@@ -49,7 +49,7 @@ export const places: Place[] = [
   {
     id: '1',
     order: 1,
-    imageUrl: '/images/map/관덕정.svg',
+    imageUrl: '/images/map/관덕정.png',
 
     name: '관덕정',
     region: '제주시',
@@ -62,7 +62,7 @@ export const places: Place[] = [
 발포로 주민 6명이 숨졌고, 그것이 4·3의 도화선이 되었습니다.`,
 
     subTitle: '고순희 할머니의 1947년의 기억',
-    subImageUrl:'',
+    subImageUrl:'images/mapListen/1/main.png',
     narrationAudioUrl: '',
     narrationDurationSec: 0,
 
@@ -87,7 +87,7 @@ export const places: Place[] = [
 {
     id: '2',
     order: 2,
-    imageUrl: '/images/map/고산.svg',
+    imageUrl: '/images/map/고산.png',
 
     name: '고산 국민 학교',
     region: '제주시',
@@ -128,7 +128,7 @@ export const places: Place[] = [
   {
     id: '3',
     order: 3,
-    imageUrl: '/images/map/제주시.svg',
+    imageUrl: '/images/map/주정.png',
 
     name: '주정 공장',
     region: '제주시',
@@ -169,7 +169,7 @@ export const places: Place[] = [
   {
     id: '4',
     order: 4,
-    imageUrl: '/images/map/조천읍.svg',
+    imageUrl: '/images/map/너븐.png',
 
     name: '너븐 숭이',
     region: '조천읍',
@@ -213,7 +213,7 @@ export const places: Place[] = [
   {
     id: '5',
     order: 5,
-    imageUrl: '/images/map/서귀포시.svg',
+    imageUrl: '/images/map/수악.png',
 
     name: '수악 주둔소',
     region: '서귀포시',
