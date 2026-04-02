@@ -97,6 +97,7 @@ export default function MapDetailPage() {
           </HStack>
         </VStack>
       </div>
+
       {/* 그날의 기록 */}
       <div className="">
         <VStack
@@ -119,12 +120,13 @@ export default function MapDetailPage() {
           </div>
         </VStack>
       </div>
+
       {/* 들어보기 버튼 */}
       <div
         className="px-5 py-5.5"
         style={{
           display: 'flex',
-          justifyContent: 'center', // 👈 가로 중앙
+          justifyContent: 'center',
         }}
       >
         <Button
