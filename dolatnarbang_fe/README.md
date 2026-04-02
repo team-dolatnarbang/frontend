@@ -7,6 +7,7 @@ npm run fix
 4. 지도 상세
 5. 지도 들어보기
 6. 최종 완료
+7. 응원 남기기 페이지 /tribute -> TributePage
    / → RootPage
    /onboarding → OnboardingPage
    /map → MapPage
@@ -14,7 +15,7 @@ npm run fix
    /map/:siteId/listen → MapListenPage
    /complete → CompletePage
 
-7. 이름, 지역선택
-8. 녹음 화면
+8. 이름, 지역선택
+9. 녹음 화면
    /senior → SeniorRegisterPage
    /senior/record → SeniorRecordPage
