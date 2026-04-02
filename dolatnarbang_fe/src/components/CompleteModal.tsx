@@ -57,8 +57,8 @@ export default function CompleteModal({
             }}
           >
             <img
-              src="/images/petal.png"
-              alt="꽃잎"
+              src={`/images/petal${petalOrder}.png`}
+              alt={`꽃잎 ${petalOrder}`}
               style={{ width: '59px', height: '59px', objectFit: 'contain' }}
             />
 
