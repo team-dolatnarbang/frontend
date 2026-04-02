@@ -1,74 +1,180 @@
-import { Button, Text, VStack } from '@vapor-ui/core'
+import { useState } from 'react'
+import { Box, Button, Text } from '@vapor-ui/core'
 import { useNavigate } from 'react-router-dom'
 
 export default function OnboardingPage() {
   const navigate = useNavigate()
 
+  const slides = [
+    {
+      title: '제주 어르신이 \n직접 들려주는 이야기',
+      desc: '교과서가 아닌, 그날을 살아낸 분들의 \n목소리로 듣는 제주 4.3사건은 어떨까요?',
+    },
+    {
+      title: '이야기를 들을수록 \n꽃 한 송이가 피어나요',
+      desc: `어르신들의 이야기를 들으며\n제주 4.3 사건의 대해 배워보세요\n동백꽃 한 송이가 완성되면 기업납서가 기부해드려요`,
+    },
+  ]
+
+  const [current, setCurrent] = useState(0)
+
+  let startX = 0
+
   return (
-    <div className="min-h-screen flex justify-center" style={{ backgroundColor: '#FAFAFA' }}>
-      <VStack
-        $css={{
+    <div
+      style={{
+        width: '100%',
+        maxWidth: 375,
+        margin: '0 auto',
+        minHeight: '100vh',
+        backgroundColor: '#FAFAFA',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      {/* 상단 이미지 */}
+      <div style={{ width: '100%', height: 421, overflow: 'hidden' }}>
+        <img
+          src="/images/onboarding_illustration.png"
+          alt=""
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+      </div>
+
+      {/* 슬라이드 영역 */}
+      <div
+        style={{
           width: '100%',
-          maxWidth: { sm: '448px', md: '576px', lg: '672px' },
-          minHeight: '100vh',
-          padding: '$400',
-          paddingTop: '$700',
+          overflow: 'hidden',
+        }}
+        onTouchStart={(e) => (startX! = e.touches[0].clientX)}
+        onTouchEnd={(e) => {
+          const diff = startX - e.changedTouches[0].clientX
+
+          if (diff > 50 && current < slides.length - 1) {
+            setCurrent(current + 1)
+          }
+          if (diff < -50 && current > 0) {
+            setCurrent(current - 1)
+          }
         }}
       >
-        {/* 서비스 소개 */}
-        <VStack $css={{ alignItems: 'center', gap: '$300' }}>
-          <Text
-            typography="heading3"
-            $css={{ color: 'var(--vapor-color-gray-900)', textAlign: 'center' }}
-          >
-            서비스명은
-          </Text>
-          <Text
-            typography="heading4"
-            $css={{ color: 'var(--vapor-color-gray-800)', textAlign: 'center', lineHeight: '1.6' }}
-          >
-            제주 4.3 사건의 피해자들을 기억하고{'\n'}추모하는 아카이브 공간입니다
-          </Text>
-        </VStack>
-
-        {/* 이미지 플레이스홀더 */}
         <div
           style={{
-            marginTop: '2rem',
-            width: '100%',
-            aspectRatio: '4/3',
-            maxHeight: '220px',
-            backgroundColor: '#D9D9D9',
-            borderRadius: '12px',
-          }}
-        />
-
-        {/* 안내 문구 */}
-        <Text
-          typography="subtitle1"
-          $css={{
-            color: 'var(--vapor-color-gray-600)',
-            textAlign: 'center',
-            marginTop: '$500',
-            lineHeight: '1.7',
+            display: 'flex',
+            width: `${slides.length * 100}%`,
+            transform: `translateX(-${current * (100 / slides.length)}%)`,
+            transition: 'transform 0.3s ease',
           }}
         >
-          꽃은 건너뛰면 피지 않습니다{'\n'}다 듣지 못했다면 언제든 이어서 들을 수 있습니다.
-        </Text>
+          {slides.map((slide, index) => (
+            <div
+              key={index}
+              style={{
+                width: `${100 / slides.length}%`,
+                padding: '24px 20px 12px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '16px',
+                flexShrink: 0,
+              }}
+            >
+              <Text
+                $css={{
+                  fontWeight: 700,
+                  fontSize: '24px',
+                  lineHeight: '1.5',
+                  letterSpacing: '-0.3px',
+                  color: '#262626',
+                  textAlign: 'center',
+                  whiteSpace: 'pre-line',
+                }}
+              >
+                {slide.title}
+              </Text>
 
-        {/* CTA 버튼 */}
-        <div style={{ marginTop: 'auto', paddingTop: '2rem', paddingBottom: '2rem' }}>
-          <Button
-            size="xl"
-            colorPalette="primary"
-            variant="fill"
-            $css={{ width: '100%' }}
-            onClick={() => navigate('/map')}
-          >
-            시작하기
-          </Button>
+              <Text
+                $css={{
+                  fontWeight: 500,
+                  fontSize: '16px',
+                  lineHeight: '1.5',
+                  letterSpacing: '-0.1px',
+                  color: '#959595',
+                  textAlign: 'center',
+                  whiteSpace: 'pre-line',
+                }}
+              >
+                {slide.desc}
+              </Text>
+            </div>
+          ))}
         </div>
-      </VStack>
+      </div>
+
+      {/* 도트 */}
+      <div
+        style={{
+          padding: '12px',
+          display: 'flex',
+          justifyContent: 'center',
+          gap: '6px',
+        }}
+      >
+        {slides.map((_, i) => (
+          <div
+            key={i}
+            onClick={() => setCurrent(i)}
+            style={{
+              width: current === i ? '16px' : '6px',
+              height: '6px',
+              borderRadius: '999px',
+              background: current === i ? '#000' : '#D9D9D9',
+              transition: '0.3s',
+              cursor: 'pointer',
+            }}
+          />
+        ))}
+      </div>
+
+{/* CTA 영역 */}
+<Box
+  $css={{
+    display: 'flex',
+    width: '100%',
+    maxWidth: '375px', // 반응형 대응
+
+    height: '151px',
+    padding: '16px 20px',
+
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '8px',
+
+    flexShrink: 0,
+  }}
+>
+  <Button
+    size="xl"
+    onClick={() => navigate('/map')}
+    $css={{
+      width: '100%',
+
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      gap: 'var(--vapor-button-gap)',
+
+      borderRadius: 'var(--vapor-size-borderRadius-300)',
+      background: 'var(--vapor-color-hondi-400)',
+
+      color: 'white',
+    }}
+  >
+    시작하기
+  </Button>
+</Box>
     </div>
   )
 }
