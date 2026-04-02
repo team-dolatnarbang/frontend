@@ -217,10 +217,18 @@ export default function MapListenPage() {
           <VStack className="rounded-lg bg-(--vapor-color-gray-100) py-4 px-4">
             <Text className="text-(--vapor-color-hondi-500) font-bold">현장 살펴보기</Text>
             <HStack className="pt-4 gap-4">
-              <Box className="w-22.5 h-33.25 bg-(--vapor-color-gray-300) rounded-sm" />
-              <Box className="w-22.5 h-33.25 bg-(--vapor-color-gray-300) rounded-sm" />
-              <Box className="w-22.5 h-33.25 bg-(--vapor-color-gray-300) rounded-sm" />
-            </HStack>
+  {place.acImageUrl.map((img, index) => (
+    <Box
+      key={index}
+      className="w-22.5 h-33.25 rounded-sm overflow-hidden relative"
+      style={{
+        backgroundImage: `url(${img})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    />
+  ))}
+</HStack>
           </VStack>
         </VStack>
 

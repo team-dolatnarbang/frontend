@@ -20,8 +20,13 @@ export default function MapDetailPage() {
           position: 'relative',
           width: '100%',
           flex: 1,
-          backgroundColor: '#D9D9D9',
           flexShrink: 0,
+
+          backgroundImage: `url(${place.imageUrl})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+
           overflow: 'hidden',
         }}
       ></div>
