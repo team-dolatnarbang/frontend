@@ -4,7 +4,7 @@ import OnboardingPage from './pages/user/OnboardingPage'
 import MapPage from './pages/user/MapPage'
 import MapDetailPage from './pages/user/MapDetailPage'
 import MapListenPage from './pages/user/MapListenPage'
-import MapDetailPageEnd from './pages/user/MapDetailPageEnd'
+// import MapDetailPageEnd from './pages/user/MapDetailPageEnd'
 import CompletePage from './pages/user/CompletePage'
 import SeniorRecordPage from './pages/senior/SeniorRecordPage'
 import SeniorRegisterPage from './pages/senior/SeniorRegisterPage'
@@ -20,7 +20,7 @@ export default function App() {
         <Route path="/map" element={<MapPage />} />
         <Route path="/map/:siteId" element={<MapDetailPage />} />
         <Route path="/map/:siteId/listen" element={<MapListenPage />} />
-        <Route path="/map/:siteId/end" element={<MapDetailPageEnd />} />
+        {/* <Route path="/map/:siteId/end" element={<MapDetailPageEnd />} /> */}
         <Route path="/complete" element={<CompletePage />} />
         <Route path="/tribute" element={<TributePage />} />
         <Route path="/tribute/feed" element={<TributeFeedPage />} />
