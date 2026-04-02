@@ -19,34 +19,12 @@ export default function MapDetailPage() {
         style={{
           position: 'relative',
           width: '100%',
-          height: '458px',
+          height: '454px',
           backgroundColor: '#D9D9D9',
           flexShrink: 0,
           overflow: 'hidden',
         }}
       >
-        <div
-          style={{
-            position: 'absolute',
-            left: '157px',
-            top: '281px',
-            width: '62px',
-            height: '62px',
-            borderRadius: '50%',
-            backgroundColor: '#FF6363',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            left: '336px',
-            top: '414px',
-            width: '62px',
-            height: '62px',
-            borderRadius: '50%',
-            backgroundColor: '#AD0000',
-          }}
-        />
       </div>
 
       <div className="px-5 py-2.5">
@@ -121,17 +99,17 @@ export default function MapDetailPage() {
             justifyContent: 'flex-end',
           }}
         >
-          <Text $css={{ textAlign: 'center' }} className="w-16 ">
-            {place.buttonLabel}
-          </Text>
+
           <Button
             size="md"
-            colorPalette="primary" // 색 확인해야함
-            variant="outline"
+            colorPalette="primary"
             onClick={() => navigate(`/map/${siteId}/listen`)}
-          ></Button>
+          >
+            {place.buttonLabel}
+          </Button>
         </HStack>
       </div>
+
     </VStack>
   )
 }
