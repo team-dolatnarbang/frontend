@@ -8,14 +8,14 @@ interface Props {
   currentStep: number
   defaultValue: string
   onBack: () => void
-  onNext: (siteId: string) => void
+  onNext: (siteId: string, siteName: string) => void
 }
 
 export default function SeniorStep3Site({
   totalSteps,
   currentStep,
   defaultValue,
-  onBack,
+  onBack: _onBack,
   onNext,
 }: Props) {
   const [selectedId, setSelectedId] = useState(defaultValue)
@@ -121,7 +121,10 @@ export default function SeniorStep3Site({
             color: 'white',
           }}
           disabled={!selectedId || isLoading || isError || sites.length === 0}
-          onClick={() => onNext(selectedId)}
+          onClick={() => {
+            const site = sites.find((s) => s.id === selectedId)
+            if (site) onNext(site.id, site.name)
+          }}
         >
           다음
         </Button>

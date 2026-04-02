@@ -1,15 +1,20 @@
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import axios from 'axios'
-import { Box, Button, Text, TextInput, Textarea, VStack, HStack } from '@vapor-ui/core'
-import type { CreateTributeResponse } from '../../types/tribute'
+import { Box, Button, Text, TextInput, Textarea, VStack } from '@vapor-ui/core'
 import { createTribute } from '../../api/user'
 
-export default function TributePage() {
+const MAX_MESSAGE_LENGTH = 300
+
+interface TributePageProps {
+  onBack: () => void
+  onComplete: () => void
+}
+
+export default function TributePage({ onBack, onComplete }: TributePageProps) {
   const [nickname, setNickname] = useState('')
   const [message, setMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [result, setResult] = useState<CreateTributeResponse | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = async () => {
@@ -24,17 +29,14 @@ export default function TributePage() {
 
     setIsLoading(true)
     setError(null)
-    setResult(null)
 
     try {
-      const data = await createTribute({
+      await createTribute({
         nickname: nickname.trim(),
         message: message.trim(),
         idempotencyKey: uuidv4(),
       })
-      setResult(data)
-      setNickname('')
-      setMessage('')
+      onComplete()
     } catch (err) {
       if (axios.isAxiosError(err)) {
         if (err.response?.status === 403) {
@@ -51,80 +53,78 @@ export default function TributePage() {
   }
 
   return (
-    <Box $css={{ maxWidth: '360px', margin: '0 auto', padding: '$400' }}>
-      <VStack $css={{ gap: '$400', alignItems: 'center' }}>
-        <Text typography="heading5" $css={{ textAlign: 'center' }}>
-          꽃 하나당 5 원의 기부금은 4.3 사건의 유가족을 위해 사용될 예정입니다.
-        </Text>
+    <Box
+      $css={{
+        maxWidth: '480px',
+        margin: '0 auto',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <VStack $css={{ flex: 1, gap: '$400', padding: '$400', paddingTop: '$200' }}>
+        {/* 헤더 */}
+        <VStack $css={{ gap: '$100' }}>
+          <Text typography="heading3" className="mt-14">
+            후기
+          </Text>
+          <Text typography="body2" foreground="hint-100">
+            어르신들의 이야기를 들으며 떠오른 생각,
+            <br />
+            제주 4.3 에 대한 다양한 의견을 편하게 남겨주세요
+          </Text>
+        </VStack>
 
-        <Box
+        {/* 닉네임 */}
+        <VStack $css={{ gap: '$150' }}>
+          <Text typography="body1">닉네임</Text>
+          <TextInput
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+            placeholder="닉네임을 작성주세요"
+            disabled={isLoading}
+          />
+        </VStack>
+
+        {/* 내용 */}
+        <VStack $css={{ gap: '$150' }}>
+          <Text typography="body1">내용</Text>
+          <Textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value.slice(0, MAX_MESSAGE_LENGTH))}
+            placeholder="자유롭게 작성해주세요."
+            disabled={isLoading}
+            $css={{ minHeight: '160px' }}
+          />
+          <Text typography="body4" foreground="hint-100" $css={{ textAlign: 'right' }}>
+            {String(message.length).padStart(2, '0')}/{MAX_MESSAGE_LENGTH}
+          </Text>
+        </VStack>
+
+        {error && (
+          <Text typography="body3" foreground="danger-100">
+            {error}
+          </Text>
+        )}
+      </VStack>
+
+      {/* 하단 버튼 */}
+      <Box $css={{ padding: '$400', paddingTop: '$200' }}>
+        <Button
+          size="xl"
+          variant="fill"
           $css={{
             width: '100%',
-            border: '1px solid var(--vapor-color-border-normal)',
-            borderRadius: '$200',
-            padding: '$300',
+            borderRadius: '8px',
+            background: 'var(--vapor-color-hondi-400)',
+            color: 'white',
           }}
+          disabled={isLoading || !nickname.trim() || !message.trim()}
+          onClick={handleSubmit}
         >
-          <VStack $css={{ gap: '$200' }}>
-            <Text typography="body2">내기억남기기</Text>
-
-            <HStack $css={{ gap: '$150', alignItems: 'center' }}>
-              <Text typography="body3" $css={{ minWidth: '48px' }}>
-                닉네임
-              </Text>
-              <TextInput
-                value={nickname}
-                onChange={(e) => setNickname(e.target.value)}
-                disabled={isLoading}
-              />
-            </HStack>
-
-            <HStack $css={{ gap: '$150', alignItems: 'flex-start' }}>
-              <Text typography="body3" $css={{ minWidth: '48px', paddingTop: '$100' }}>
-                내용
-              </Text>
-              <Textarea
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                disabled={isLoading}
-                $css={{ minHeight: '100px', flex: 1 }}
-              />
-            </HStack>
-
-            {error && (
-              <Text typography="body3" foreground="danger-100">
-                {error}
-              </Text>
-            )}
-
-            {result && (
-              <Box
-                $css={{
-                  padding: '$200',
-                  background: 'var(--vapor-color-background-success)',
-                  borderRadius: '$200',
-                }}
-              >
-                <VStack $css={{ gap: '$050' }}>
-                  <Text typography="body3" foreground="success-200">
-                    헌화가 완료되었습니다 🌺
-                  </Text>
-                  <Text typography="body4" foreground="hint-100">
-                    꽃잎 {result.camelliaCount}개 · 적립금{' '}
-                    {result.pledgedAmountWon.toLocaleString()}원
-                  </Text>
-                </VStack>
-              </Box>
-            )}
-          </VStack>
-        </Box>
-
-        <Box $css={{ alignSelf: 'flex-end' }}>
-          <Button colorPalette="warning" variant="fill" onClick={handleSubmit} disabled={isLoading}>
-            {isLoading ? '저장 중...' : '기록'}
-          </Button>
-        </Box>
-      </VStack>
+          {isLoading ? '저장 중...' : '작성 완료'}
+        </Button>
+      </Box>
     </Box>
   )
 }
