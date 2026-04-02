@@ -1,401 +1,365 @@
-import { Button } from '@vapor-ui/core'
+import { Badge, Box, Button, HStack, IconButton, Text, VStack } from '@vapor-ui/core'
+import {
+  BackPageOutlineIcon,
+  ForwardPageOutlineIcon,
+  PauseOutlineIcon,
+  PlayOutlineIcon,
+} from '@vapor-ui/icons'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { places } from '../../data/places'
+import { places, type NarrationLine } from '../../data/places'
 
-const sectionTitleStyle: React.CSSProperties = {
-  fontFamily: 'Pretendard, sans-serif',
-  fontWeight: 700,
-  fontSize: '14px',
-  lineHeight: '1.286',
-  color: '#000000',
+function formatTime(seconds: number): string {
+  const m = Math.floor(seconds / 60)
+  const s = Math.floor(seconds % 60)
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
 }
 
-const bodyTextStyle: React.CSSProperties = {
-  fontFamily: 'Pretendard, sans-serif',
-  fontWeight: 500,
-  fontSize: '14px',
-  lineHeight: '1.571',
-  letterSpacing: '-0.1px',
-  color: '#3B3B3B',
-  whiteSpace: 'pre-line',
+function getActiveIndex(narration: NarrationLine[], currentTime: number): number {
+  return narration.findIndex((line) => currentTime >= line.start && currentTime < line.end)
 }
 
 export default function MapListenPage() {
   const { siteId } = useParams()
   const navigate = useNavigate()
 
+  const audioRef = useRef<HTMLAudioElement>(null)
+  const activeLineRef = useRef<HTMLDivElement>(null)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [currentTime, setCurrentTime] = useState(0)
+  const [duration, setDuration] = useState(0)
+
   const place = places.find((p) => String(p.id) === siteId)
-  if (!place) {
-    navigate('/map', { replace: true })
-    return null
-  }
+
+  const activeLineIndex = place ? getActiveIndex(place.narration, currentTime) : -1
+
+  useEffect(() => {
+    if (!place) navigate('/map', { replace: true })
+  }, [place, navigate])
+
+  useEffect(() => {
+    if (activeLineIndex >= 0) {
+      activeLineRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+  }, [activeLineIndex])
+
+  if (!place) return null
 
   const currentIndex = places.findIndex((p) => String(p.id) === siteId)
   const isLastPlace = currentIndex === places.length - 1
   const nextPlace = places[currentIndex + 1]
 
+  const audioUrl = place.audioUrl
+
+  const togglePlay = () => {
+    const audio = audioRef.current
+    if (!audio) return
+    if (isPlaying) {
+      audio.pause()
+    } else {
+      audio.play()
+    }
+    setIsPlaying(!isPlaying)
+  }
+
+  const handleBack = () => {
+    if (!audioRef.current) return
+    audioRef.current.currentTime = Math.max(0, currentTime - 10)
+  }
+
+  const handleForward = () => {
+    if (!audioRef.current) return
+    audioRef.current.currentTime = Math.min(duration, currentTime + 10)
+  }
+
+  const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!audioRef.current || duration === 0) return
+    const rect = e.currentTarget.getBoundingClientRect()
+    const ratio = (e.clientX - rect.left) / rect.width
+    audioRef.current.currentTime = ratio * duration
+  }
+
+  const progress = duration > 0 ? (currentTime / duration) * 100 : 0
+
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        backgroundColor: '#FAFAFA',
-        display: 'flex',
-        flexDirection: 'column',
-        overflowY: 'auto',
-      }}
-    >
-      {/* 뒤로가기 */}
-      <button
-        onClick={() => navigate(`/map/${siteId}`)}
-        style={{
-          position: 'fixed',
-          top: '12px',
-          left: '12px',
-          zIndex: 10,
-          background: 'rgba(0,0,0,0.15)',
-          border: 'none',
-          borderRadius: '50%',
-          width: '36px',
-          height: '36px',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '18px',
-          color: '#000',
-        }}
-      >
-        ←
-      </button>
+    <VStack $css={{ backgroundColor: '#FAFAFA', minHeight: '100vh' }}>
+      <audio
+        ref={audioRef}
+        src={audioUrl || undefined}
+        onTimeUpdate={() => setCurrentTime(audioRef.current?.currentTime ?? 0)}
+        onLoadedMetadata={() => setDuration(audioRef.current?.duration ?? 0)}
+        onEnded={() => setIsPlaying(false)}
+      />
 
       {/* 장소 뱃지 + 제목 + 부제목 */}
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          padding: '8px 20px',
-          gap: '8px',
-          marginTop: '44px',
-        }}
-      >
-        <span
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            padding: '2px 8px',
-            backgroundColor: 'rgba(229,0,72,0.1)',
-            borderRadius: '100px',
-            fontFamily: 'Pretendard, sans-serif',
-            fontWeight: 500,
-            fontSize: '12px',
-            lineHeight: '1.5',
-            color: '#E50048',
-            alignSelf: 'flex-start',
-          }}
-        >
-          {place.name}
-        </span>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-          <span
-            style={{
-              fontFamily: 'Pretendard, sans-serif',
-              fontWeight: 700,
-              fontSize: '24px',
-              lineHeight: '1.5',
-              letterSpacing: '-0.3px',
-              color: '#3B3B3B',
-            }}
-          >
+      <div className="px-5 pt-3 pb-2">
+        <VStack $css={{ gap: '6px', alignItems: 'flex-start' }}>
+          <Badge colorPalette={place.locationColor} shape="pill" size="sm">
+            {place.location}
+          </Badge>
+          <Text typography="heading2" foreground="normal-100" $css={{ letterSpacing: '-0.3px' }}>
             {place.memory.title}
-          </span>
-          <span
-            style={{
-              fontFamily: 'Pretendard, sans-serif',
-              fontWeight: 500,
-              fontSize: '14px',
-              lineHeight: '1.571',
-              letterSpacing: '-0.1px',
-              color: '#3B3B3B',
-            }}
-          >
+          </Text>
+          <Text typography="body2" foreground="normal-200">
             {place.memory.narrator}의 기억
-          </span>
-        </div>
+          </Text>
+        </VStack>
       </div>
 
       {/* 이미지 영역 */}
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          padding: '16px 20px',
-          gap: '8px',
-          overflowX: 'auto',
-        }}
-      >
-        {[0, 1, 2].map((i) => (
-          <div
-            key={i}
-            style={{
-              flexShrink: 0,
-              width: '195px',
-              height: '214px',
-              backgroundColor: '#D9D9D9',
-              borderRadius: '4px',
-            }}
-          />
-        ))}
+      <div className="px-5 py-3">
+        <Box
+          $css={{
+            width: '100%',
+            height: '220px',
+            backgroundColor: '#D9D9D9',
+            borderRadius: '8px',
+          }}
+        />
       </div>
 
       {/* 오디오 플레이어 */}
-      <div
-        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '8px 0' }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: '4px',
-            padding: '4px 0',
-          }}
-        >
-          <span
-            style={{
+      <div className="px-5">
+        {/* 진행 바 */}
+        <div className="flex items-center gap-2 py-1">
+          <Text
+            $css={{
               fontFamily: 'Oxygen, sans-serif',
-              fontWeight: 400,
               fontSize: '12px',
-              lineHeight: '1.5',
               color: '#480000',
+              flexShrink: '0',
             }}
           >
-            00:00
-          </span>
+            {formatTime(currentTime)}
+          </Text>
           <div
+            onClick={handleSeek}
             style={{
-              width: '259px',
-              height: '8px',
-              backgroundColor: '#393636',
-              borderRadius: '4px',
+              flex: 1,
+              height: '4px',
+              backgroundColor: '#D9D9D9',
+              borderRadius: '2px',
               overflow: 'hidden',
+              cursor: 'pointer',
             }}
           >
             <div
               style={{
-                width: '20%',
+                width: `${progress}%`,
                 height: '100%',
                 backgroundColor: '#E50048',
-                borderRadius: '4px',
+                borderRadius: '2px',
+                transition: 'width 0.1s linear',
               }}
             />
           </div>
-          <span
-            style={{
+          <Text
+            $css={{
               fontFamily: 'Oxygen, sans-serif',
-              fontWeight: 400,
               fontSize: '12px',
-              lineHeight: '1.5',
               color: '#480000',
+              flexShrink: '0',
             }}
           >
-            00:00
-          </span>
+            {formatTime(duration)}
+          </Text>
         </div>
 
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100%',
-            gap: '20px',
-            padding: '25px 0',
-          }}
-        >
-          <button
-            style={{
-              width: '40px',
-              height: '40px',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '22px',
-            }}
+        {/* 컨트롤 버튼 */}
+        <div className="flex items-center justify-center w-full gap-5 py-4">
+          <IconButton
+            variant="ghost"
+            colorPalette="secondary"
+            shape="circle"
+            onClick={handleBack}
+            $css={{ width: '40px', height: '40px' }}
           >
-            ↺
-          </button>
-          <button
-            style={{
-              width: '68px',
-              height: '68px',
-              borderRadius: '50%',
-              backgroundColor: '#E50048',
-              border: 'none',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#fff',
-              fontSize: '26px',
-            }}
+            <BackPageOutlineIcon />
+          </IconButton>
+          <IconButton
+            variant="fill"
+            colorPalette="danger"
+            shape="circle"
+            onClick={togglePlay}
+            $css={{ width: '64px', height: '64px' }}
           >
-            ▶
-          </button>
-          <button
-            style={{
-              width: '40px',
-              height: '40px',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '22px',
-            }}
+            {isPlaying ? <PauseOutlineIcon /> : <PlayOutlineIcon />}
+          </IconButton>
+          <IconButton
+            variant="ghost"
+            colorPalette="secondary"
+            shape="circle"
+            onClick={handleForward}
+            $css={{ width: '40px', height: '40px' }}
           >
-            ↻
-          </button>
+            <ForwardPageOutlineIcon />
+          </IconButton>
         </div>
       </div>
 
-      {/* 나레이션 */}
-      <div style={{ display: 'flex', flexDirection: 'column', padding: '18px 20px', gap: '8px' }}>
-        <span style={sectionTitleStyle}>나레이션</span>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            padding: '14px 12px',
-            gap: '16px',
-            backgroundColor: '#EDEDED',
-            borderRadius: '8px',
-            minHeight: '210px',
-          }}
-        >
-          <span style={bodyTextStyle}>{place.record}</span>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              padding: '2px',
-              backgroundColor: '#FFE063',
-              borderRadius: '2px',
-              alignSelf: 'flex-start',
+      {/* 나레이션 - 실시간 자막 싱크 */}
+      <div className="bg-amber-300 px-5 py-4">
+        <VStack $css={{ gap: '8px', alignItems: 'flex-start' }}>
+          <Text typography="body3" foreground="danger-100" $css={{ fontWeight: '700' }}>
+            나레이션
+          </Text>
+          <VStack
+            $css={{
+              gap: '8px',
+              backgroundColor: '#fff',
+              borderRadius: '8px',
+              width: '100%',
+              padding: '16px 14px',
+              overflowY: 'auto',
+              maxHeight: '240px',
             }}
           >
-            <span
-              style={{
-                fontFamily: 'Pretendard, sans-serif',
-                fontWeight: 700,
-                fontSize: '16px',
-                lineHeight: '1.5',
-                letterSpacing: '-0.1px',
-                color: '#3B3B3B',
-              }}
-            >
-              {place.memory.title}
-            </span>
-          </div>
-          <span style={bodyTextStyle}>{place.record}</span>
-        </div>
-      </div>
-
-      {/* 그날의 기록 */}
-      <div style={{ display: 'flex', flexDirection: 'column', padding: '18px 20px', gap: '8px' }}>
-        <span style={sectionTitleStyle}>그날의 기록</span>
-        <div style={{ padding: '14px 12px', backgroundColor: '#EDEDED', borderRadius: '8px' }}>
-          <span style={{ ...bodyTextStyle, display: 'block' }}>{place.record}</span>
-        </div>
-      </div>
-
-      {/* 관련 이미지 둘러보기 */}
-      <div style={{ display: 'flex', flexDirection: 'column', padding: '18px 20px', gap: '8px' }}>
-        <span style={sectionTitleStyle}>관련 이미지 둘러보기</span>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            padding: '14px 12px',
-            gap: '8px',
-            backgroundColor: '#EDEDED',
-            borderRadius: '8px',
-          }}
-        >
-          {['', '', ''].map((_, i) => (
-            <div
-              key={i}
-              style={{
-                position: 'relative',
-                width: '98px',
-                height: '133px',
-                backgroundColor: '#D9D9D9',
-                borderRadius: '4px',
-                flexShrink: 0,
-              }}
-            >
-              <span
-                style={{
-                  position: 'absolute',
-                  bottom: '6px',
-                  left: '6px',
-                  fontFamily: 'Pretendard, sans-serif',
-                  fontWeight: 500,
-                  fontSize: '12px',
-                  lineHeight: '1.5',
-                  color: '#000000',
-                }}
+            {place.narration.map((line, i) => {
+              const isActive = i === activeLineIndex
+              return (
+                <div
+                  key={i}
+                  ref={isActive ? activeLineRef : null}
+                  style={{ transition: 'opacity 0.3s' }}
+                >
+                  {isActive ? (
+                    <Box
+                      $css={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        padding: '2px 6px',
+                        backgroundColor: '#FFE063',
+                        borderRadius: '4px',
+                      }}
+                    >
+                      <Text
+                        typography="body1"
+                        foreground="normal-100"
+                        $css={{ fontWeight: '700', letterSpacing: '-0.1px' }}
+                      >
+                        {line.text}
+                      </Text>
+                    </Box>
+                  ) : (
+                    <Text
+                      typography="body2"
+                      $css={{
+                        letterSpacing: '-0.1px',
+                        opacity: i < activeLineIndex ? '0.35' : '0.5',
+                        color: '#3B3B3B',
+                      }}
+                    >
+                      {line.text}
+                    </Text>
+                  )}
+                </div>
+              )
+            })}
+            <div className="flex justify-end mt-1">
+              <Text
+                typography="body3"
+                foreground="danger-100"
+                $css={{ cursor: 'pointer', fontWeight: '600' }}
               >
-                {i === 0 ? place.name : '??????'}
-              </span>
+                전체 보기
+              </Text>
             </div>
-          ))}
-        </div>
+          </VStack>
+        </VStack>
       </div>
 
-      {/* 다음 장소로 버튼 */}
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          padding: '14px 20px',
-          gap: '8px',
-          marginTop: 'auto',
-        }}
-      >
-        <Button
-          size="xl"
-          colorPalette="secondary"
-          variant="fill"
-          disabled={isLastPlace}
-          onClick={() => nextPlace && navigate(`/map/${nextPlace.id}`)}
-          style={{
-            width: '100%',
-            borderRadius: '8px',
-            backgroundColor: '#E1E1E1',
-            color: '#262626',
-            opacity: isLastPlace ? 0.32 : 1,
-          }}
-        >
-          다음 장소로
-        </Button>
-        <span
-          style={{
-            fontFamily: 'Inter, sans-serif',
-            fontWeight: 400,
-            fontSize: '14px',
-            color: '#919191',
-            textAlign: 'right',
-            alignSelf: 'flex-end',
-          }}
-        >
-          30 초 까지 들어야 활성화 돼요
-        </span>
+      {/* 사건 기록 */}
+      <div className="bg-amber-300 px-5 py-4">
+        <VStack $css={{ gap: '8px', alignItems: 'flex-start' }}>
+          <Text typography="body3" foreground="danger-100" $css={{ fontWeight: '700' }}>
+            사건 기록
+          </Text>
+          <VStack
+            $css={{
+              backgroundColor: '#fff',
+              borderRadius: '8px',
+              width: '100%',
+              padding: '16px 14px',
+              gap: '6px',
+              alignItems: 'flex-start',
+            }}
+          >
+            <Text typography="heading5" foreground="normal-100">
+              {place.name}
+            </Text>
+            <Text typography="body3" foreground="normal-200">
+              {place.eventDate}
+            </Text>
+            <Text
+              typography="body2"
+              foreground="normal-100"
+              $css={{ whiteSpace: 'pre-line', letterSpacing: '-0.1px' }}
+            >
+              {place.record}
+            </Text>
+            <div className="flex justify-end w-full mt-1">
+              <Text
+                typography="body3"
+                foreground="danger-100"
+                $css={{ cursor: 'pointer', fontWeight: '600' }}
+              >
+                더보기
+              </Text>
+            </div>
+          </VStack>
+        </VStack>
       </div>
-    </div>
+
+      {/* 현장 살펴보기 */}
+      <div className="bg-amber-300 px-5 py-4">
+        <VStack $css={{ gap: '8px', alignItems: 'flex-start' }}>
+          <Text typography="body3" foreground="danger-100" $css={{ fontWeight: '700' }}>
+            현장 살펴보기
+          </Text>
+          <HStack $css={{ gap: '8px', width: '100%' }}>
+            {['', '', ''].map((_, i) => (
+              <VStack key={i} $css={{ gap: '4px', alignItems: 'flex-start', flexShrink: '0' }}>
+                <Box
+                  $css={{
+                    width: '98px',
+                    height: '120px',
+                    backgroundColor: '#D9D9D9',
+                    borderRadius: '4px',
+                  }}
+                />
+                <Text typography="body3" foreground="normal-200">
+                  {i === 0 ? `1947년 ${place.name}` : '??????'}
+                </Text>
+              </VStack>
+            ))}
+          </HStack>
+        </VStack>
+      </div>
+
+      {/* 하단 버튼 영역 */}
+      <div className="px-5 py-4">
+        <VStack $css={{ gap: '10px', alignItems: 'stretch' }}>
+          <Text typography="body2" foreground="hint-100" $css={{ textAlign: 'center' }}>
+            30 초 까지 들어야 활성화 돼요
+          </Text>
+          <Button
+            size="xl"
+            colorPalette="secondary"
+            variant="fill"
+            disabled={isLastPlace}
+            onClick={() => nextPlace && navigate(`/map/${nextPlace.id}`)}
+            style={{
+              width: '100%',
+              borderRadius: '8px',
+              backgroundColor: '#E1E1E1',
+              color: '#262626',
+              opacity: isLastPlace ? 0.32 : 1,
+            }}
+          >
+            다음 장소로
+          </Button>
+        </VStack>
+      </div>
+    </VStack>
   )
 }
