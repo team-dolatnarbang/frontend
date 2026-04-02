@@ -43,7 +43,7 @@ export default function RootPage() {
             color: '#000000',
           }}
         >
-          혼디혼니
+          (서비스명)
         </span>
         <Button
           size="xl"
