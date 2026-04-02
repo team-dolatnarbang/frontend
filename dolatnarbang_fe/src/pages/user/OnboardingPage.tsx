@@ -1,8 +1,8 @@
 import { Button, Text, VStack } from '@vapor-ui/core'
-import { useNavigationStore } from '../stores/navigationStore'
+import { useNavigate } from 'react-router-dom'
 
 export default function OnboardingPage() {
-  const goTo = useNavigationStore((s) => s.goTo)
+  const navigate = useNavigate()
 
   return (
     <div className="min-h-screen flex justify-center" style={{ backgroundColor: '#FAFAFA' }}>
@@ -63,7 +63,7 @@ export default function OnboardingPage() {
             colorPalette="primary"
             variant="fill"
             $css={{ width: '100%' }}
-            onClick={() => goTo('map')}
+            onClick={() => navigate('/map')}
           >
             시작하기
           </Button>
