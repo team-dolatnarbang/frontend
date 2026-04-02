@@ -82,284 +82,175 @@ export default function MapListenPage() {
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0
 
   return (
-    <VStack $css={{ backgroundColor: '#FAFAFA', minHeight: '100vh' }}>
-      <audio
-        ref={audioRef}
-        src={audioUrl || undefined}
-        onTimeUpdate={() => setCurrentTime(audioRef.current?.currentTime ?? 0)}
-        onLoadedMetadata={() => setDuration(audioRef.current?.duration ?? 0)}
-        onEnded={() => setIsPlaying(false)}
-      />
+    <VStack className="flex items-center w-full">
+      <VStack className="pt-5 w-83.75 items-center">
+        <audio
+          ref={audioRef}
+          src={audioUrl || undefined}
+          onTimeUpdate={() => setCurrentTime(audioRef.current?.currentTime ?? 0)}
+          onLoadedMetadata={() => setDuration(audioRef.current?.duration ?? 0)}
+          onEnded={() => setIsPlaying(false)}
+        />
 
-      {/* 장소 뱃지 + 제목 + 부제목 */}
-      <div className="px-5 pt-3 pb-2">
-        <VStack $css={{ gap: '6px', alignItems: 'flex-start' }}>
-          <Badge colorPalette={place.locationColor} shape="pill" size="sm">
+        {/* 장소 뱃지 + 제목 + 부제목 */}
+        <VStack className="gap-2 items-start mt-4.5">
+          <Badge
+            shape="pill"
+            className="px-1.75 py-0.5 outline-1 outline-(--vapor-color-green-400) bg-(--vapor-color-green-050) text-(--vapor-color-green-700)"
+          >
             {place.location}
           </Badge>
-          <Text typography="heading2" foreground="normal-100" $css={{ letterSpacing: '-0.3px' }}>
-            {place.memory.title}
-          </Text>
-          <Text typography="body2" foreground="normal-200">
-            {place.memory.narrator}의 기억
-          </Text>
-        </VStack>
-      </div>
-
-      {/* 이미지 영역 */}
-      <div className="px-5 py-3">
-        <Box
-          $css={{
-            width: '100%',
-            height: '220px',
-            backgroundColor: '#D9D9D9',
-            borderRadius: '8px',
-          }}
-        />
-      </div>
-
-      {/* 오디오 플레이어 */}
-      <div className="px-5">
-        {/* 진행 바 */}
-        <div className="flex items-center gap-2 py-1">
-          <Text
-            $css={{
-              fontFamily: 'Oxygen, sans-serif',
-              fontSize: '12px',
-              color: '#480000',
-              flexShrink: '0',
-            }}
-          >
-            {formatTime(currentTime)}
-          </Text>
-          <div
-            onClick={handleSeek}
-            style={{
-              flex: 1,
-              height: '4px',
-              backgroundColor: '#D9D9D9',
-              borderRadius: '2px',
-              overflow: 'hidden',
-              cursor: 'pointer',
-            }}
-          >
-            <div
-              style={{
-                width: `${progress}%`,
-                height: '100%',
-                backgroundColor: '#E50048',
-                borderRadius: '2px',
-                transition: 'width 0.1s linear',
-              }}
-            />
-          </div>
-          <Text
-            $css={{
-              fontFamily: 'Oxygen, sans-serif',
-              fontSize: '12px',
-              color: '#480000',
-              flexShrink: '0',
-            }}
-          >
-            {formatTime(duration)}
-          </Text>
-        </div>
-
-        {/* 컨트롤 버튼 */}
-        <div className="flex items-center justify-center w-full gap-5 py-4">
-          <IconButton
-            variant="ghost"
-            colorPalette="secondary"
-            shape="circle"
-            onClick={handleBack}
-            $css={{ width: '40px', height: '40px' }}
-          >
-            <BackPageOutlineIcon />
-          </IconButton>
-          <IconButton
-            variant="fill"
-            colorPalette="danger"
-            shape="circle"
-            onClick={togglePlay}
-            $css={{ width: '64px', height: '64px' }}
-          >
-            {isPlaying ? <PauseOutlineIcon /> : <PlayOutlineIcon />}
-          </IconButton>
-          <IconButton
-            variant="ghost"
-            colorPalette="secondary"
-            shape="circle"
-            onClick={handleForward}
-            $css={{ width: '40px', height: '40px' }}
-          >
-            <ForwardPageOutlineIcon />
-          </IconButton>
-        </div>
-      </div>
-
-      {/* 나레이션 - 실시간 자막 싱크 */}
-      <div className="bg-amber-300 px-5 py-4">
-        <VStack $css={{ gap: '8px', alignItems: 'flex-start' }}>
-          <Text typography="body3" foreground="danger-100" $css={{ fontWeight: '700' }}>
-            나레이션
-          </Text>
-          <VStack
-            $css={{
-              gap: '8px',
-              backgroundColor: '#fff',
-              borderRadius: '8px',
-              width: '100%',
-              padding: '16px 14px',
-              overflowY: 'auto',
-              maxHeight: '240px',
-            }}
-          >
-            {place.narration.map((line, i) => {
-              const isActive = i === activeLineIndex
-              return (
-                <div
-                  key={i}
-                  ref={isActive ? activeLineRef : null}
-                  style={{ transition: 'opacity 0.3s' }}
-                >
-                  {isActive ? (
-                    <Box
-                      $css={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        padding: '2px 6px',
-                        backgroundColor: '#FFE063',
-                        borderRadius: '4px',
-                      }}
-                    >
-                      <Text
-                        typography="body1"
-                        foreground="normal-100"
-                        $css={{ fontWeight: '700', letterSpacing: '-0.1px' }}
-                      >
-                        {line.text}
-                      </Text>
-                    </Box>
-                  ) : (
-                    <Text
-                      typography="body2"
-                      $css={{
-                        letterSpacing: '-0.1px',
-                        opacity: i < activeLineIndex ? '0.35' : '0.5',
-                        color: '#3B3B3B',
-                      }}
-                    >
-                      {line.text}
-                    </Text>
-                  )}
-                </div>
-              )
-            })}
-            <div className="flex justify-end mt-1">
-              <Text
-                typography="body3"
-                foreground="danger-100"
-                $css={{ cursor: 'pointer', fontWeight: '600' }}
-              >
-                전체 보기
-              </Text>
-            </div>
+          <VStack className="gap-1">
+            <Text typography="heading3">{place.memory.title}</Text>
+            <Text typography="heading6">{place.memory.narrator}의 기억</Text>
           </VStack>
         </VStack>
-      </div>
 
-      {/* 사건 기록 */}
-      <div className="bg-amber-300 px-5 py-4">
-        <VStack $css={{ gap: '8px', alignItems: 'flex-start' }}>
-          <Text typography="body3" foreground="danger-100" $css={{ fontWeight: '700' }}>
-            사건 기록
-          </Text>
-          <VStack
-            $css={{
-              backgroundColor: '#fff',
-              borderRadius: '8px',
-              width: '100%',
-              padding: '16px 14px',
-              gap: '6px',
-              alignItems: 'flex-start',
-            }}
-          >
-            <Text typography="heading5" foreground="normal-100">
-              {place.name}
-            </Text>
-            <Text typography="body3" foreground="normal-200">
-              {place.eventDate}
-            </Text>
+        {/* 이미지 영역 */}
+        <div className="py-4">
+          <Box className="w-55.25 h-60.25 bg-(--vapor-color-gray-100) rounded-sm" />
+        </div>
+
+        {/* 오디오 플레이어 ---- 수정 필요*/}
+        <div className="px-5 ">
+          {/* 진행 바 */}
+          <div className="flex items-center gap-2 py-1">
             <Text
-              typography="body2"
-              foreground="normal-100"
-              $css={{ whiteSpace: 'pre-line', letterSpacing: '-0.1px' }}
+              $css={{
+                fontFamily: 'Oxygen, sans-serif',
+                fontSize: '12px',
+                color: '#480000',
+                flexShrink: '0',
+              }}
             >
-              {place.record}
+              {formatTime(currentTime)}
             </Text>
-            <div className="flex justify-end w-full mt-1">
-              <Text
-                typography="body3"
-                foreground="danger-100"
-                $css={{ cursor: 'pointer', fontWeight: '600' }}
-              >
-                더보기
-              </Text>
+            <div
+              onClick={handleSeek}
+              style={{
+                flex: 1,
+                height: '4px',
+                backgroundColor: '#D9D9D9',
+                borderRadius: '2px',
+                overflow: 'hidden',
+                cursor: 'pointer',
+              }}
+            >
+              <div
+                style={{
+                  width: `${progress}%`,
+                  height: '100%',
+                  backgroundColor: '#E50048',
+                  borderRadius: '2px',
+                  transition: 'width 0.1s linear',
+                }}
+              />
             </div>
+            <Text
+              $css={{
+                fontFamily: 'Oxygen, sans-serif',
+                fontSize: '12px',
+                color: '#480000',
+                flexShrink: '0',
+              }}
+            >
+              {formatTime(duration)}
+            </Text>
+          </div>
+
+          {/* 컨트롤 버튼 */}
+          <div className="flex items-center justify-center w-full gap-5 py-4">
+            <IconButton
+              variant="ghost"
+              colorPalette="secondary"
+              shape="circle"
+              onClick={handleBack}
+              $css={{ width: '40px', height: '40px' }}
+            >
+              <BackPageOutlineIcon />
+            </IconButton>
+            <IconButton
+              variant="fill"
+              colorPalette="danger"
+              shape="circle"
+              onClick={togglePlay}
+              $css={{ width: '64px', height: '64px' }}
+            >
+              {isPlaying ? <PauseOutlineIcon /> : <PlayOutlineIcon />}
+            </IconButton>
+            <IconButton
+              variant="ghost"
+              colorPalette="secondary"
+              shape="circle"
+              onClick={handleForward}
+              $css={{ width: '40px', height: '40px' }}
+            >
+              <ForwardPageOutlineIcon />
+            </IconButton>
+          </div>
+        </div>
+
+        <VStack className="gap-6">
+          {/* 나레이션 - 실시간 자막 싱크 */}
+          <VStack className="rounded-lg bg-(--vapor-color-gray-100) py-4 px-4">
+            <Text className="text-(--vapor-color-hondi-500) font-bold">나레이션</Text>
+            <Text className="pt-4 text-(--vapor-color-gray-600)">
+              나 그때 열 살이었어. 관덕정 앞에 사람이 엄청 모였거든. 3·1절이니까. 근데 갑자기 말이
+              달려오는 거야. 크고 무서운 말. 사람들이 막 피하고 난리가 났지. 그러다 탕, 소리가 났어
+              사람들이 쓰러지는 거 봤어. 내 옆에 있던 아줌마가 나를 확 안고 엎드렸거든.
+            </Text>
+          </VStack>
+
+          {/* 사건 기록 */}
+          <VStack className="rounded-lg bg-(--vapor-color-gray-100) py-4 px-4">
+            <Text className="text-(--vapor-color-hondi-500) font-bold">사건 기록</Text>
+            <HStack className="gap-2 items-center pt-4">
+              <Text typography="heading4">관덕정</Text>
+              <Text typography="subtitle1" className="text-(--vapor-color-gray-400)">
+                1947.03.31
+              </Text>
+            </HStack>
+            <Text className="pt-2 text-(--vapor-color-gray-600)">
+              1947년 3·1절, 기마경찰의 말발굽에 어린이가 치였다. 경찰의 발포로 주민 6명이 숨졌고,
+              그것이 4·3의 도화선이 되었습니. 이후 이곳은 무장대 사령관 이덕구의 시신이 효수된
+              장소로 역사에 남았습니다.
+            </Text>
+          </VStack>
+
+          {/* 현장 살펴보기 */}
+          <VStack className="rounded-lg bg-(--vapor-color-gray-100) py-4 px-4">
+            <Text className="text-(--vapor-color-hondi-500) font-bold">현장 살펴보기</Text>
+            <HStack className="pt-4 gap-4">
+              <Box className="w-22.5 h-33.25 bg-(--vapor-color-gray-300) rounded-sm" />
+              <Box className="w-22.5 h-33.25 bg-(--vapor-color-gray-300) rounded-sm" />
+              <Box className="w-22.5 h-33.25 bg-(--vapor-color-gray-300) rounded-sm" />
+            </HStack>
           </VStack>
         </VStack>
-      </div>
 
-      {/* 현장 살펴보기 */}
-      <div className="bg-amber-300 px-5 py-4">
-        <VStack $css={{ gap: '8px', alignItems: 'flex-start' }}>
-          <Text typography="body3" foreground="danger-100" $css={{ fontWeight: '700' }}>
-            현장 살펴보기
-          </Text>
-          <HStack $css={{ gap: '8px', width: '100%' }}>
-            {['', '', ''].map((_, i) => (
-              <VStack key={i} $css={{ gap: '4px', alignItems: 'flex-start', flexShrink: '0' }}>
-                <Box
-                  $css={{
-                    width: '98px',
-                    height: '120px',
-                    backgroundColor: '#D9D9D9',
-                    borderRadius: '4px',
-                  }}
-                />
-                <Text typography="body3" foreground="normal-200">
-                  {i === 0 ? `1947년 ${place.name}` : '??????'}
-                </Text>
-              </VStack>
-            ))}
-          </HStack>
-        </VStack>
-      </div>
-
-      {/* 하단 버튼 영역 */}
-      <div className="px-5 py-4">
-        <VStack $css={{ gap: '10px', alignItems: 'stretch' }}>
-          <Text typography="body2" foreground="hint-100" $css={{ textAlign: 'center' }}>
-            30 초 까지 들어야 활성화 돼요
-          </Text>
-          <Button
-            size="xl"
-            colorPalette="secondary"
-            variant="fill"
-            disabled={isLastPlace}
-            onClick={() => nextPlace && navigate(`/map/${nextPlace.id}`)}
-            style={{
-              width: '100%',
-              borderRadius: '8px',
-              backgroundColor: '#E1E1E1',
-              color: '#262626',
-              opacity: isLastPlace ? 0.32 : 1,
-            }}
-          >
-            다음 장소로
-          </Button>
-        </VStack>
-      </div>
+        {/* 하단 버튼 영역 */}
+        <Button
+          $css={{
+            display: 'flex',
+            height: 'var(--vapor-size-dimension-600)',
+            padding: '0 var(--vapor-size-space-300)',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: 'var(--vapor-button-gap)',
+            alignSelf: 'stretch',
+            marginTop: '32px',
+            color: 'white',
+            fontFamily: 'var(--vapor-typography-fontFamily-sans)',
+            fontSize: 'var(--vapor-typography-fontSize-100)',
+            fontStyle: 'normal',
+            fontWeight: 400,
+            lineHeight: 'var(--vapor-typography-lineHeight-100)',
+            letterSpacing: 'var(--vapor-typography-letterSpacing-100)',
+          }}
+        >
+          다음 장소로
+        </Button>
+      </VStack>
     </VStack>
   )
 }
