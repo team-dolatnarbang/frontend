@@ -12,6 +12,11 @@ RUN npm install
 # 전체 앱 소스 복사
 COPY dolatnarbang_fe/ .
 
+# 배포 호스트의 Ingress 경로(/api)와 동일한 베이스 URL (다른 환이면 --build-arg 로 덮어씀)
+ARG VITE_API_BASE_URL=https://goormthon-2.goorm.training/api
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+##
+
 # 앱 빌드
 RUN npm run build
 

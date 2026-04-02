@@ -116,7 +116,8 @@ export default function MapListenPage() {
           />
         </div>
 
-        <AudioPlayer src={audioUrl || ''} />
+        {/* TODO: 임시 오디오 URL - 실제 데이터로 교체 필요 */}
+        <AudioPlayer src="https://required-teal-bcurxfa0ka.edgeone.app/4_18.mp3" />
 
         <VStack className="gap-6">
           {/* 나레이션 - 실시간 자막 싱크 */}

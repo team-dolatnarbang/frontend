@@ -4,7 +4,7 @@ export interface Place {
 
   // 몇번째 마커
   order: number
-  
+
   // 이미지
   imageUrl: string
 
@@ -18,8 +18,7 @@ export interface Place {
   title: string // 제목
 
   acRecord: string // 사건 기록
-  
-  
+
   // + 들어보기 page
 
   subTitle: string // 부제목
@@ -63,6 +62,7 @@ export const places: Place[] = [
 
     subTitle: '고순희 할머니의 1947년의 기억',
     subImageUrl:'/images/mapListen/1/main.png',
+
     narrationAudioUrl: '',
     narrationDurationSec: 0,
 
@@ -82,9 +82,13 @@ export const places: Place[] = [
     acInfoText: `1947년 3·1절, 기마경찰의 말발굽에 어린이가 치였다. 
 경찰의 발포로 주민 6명이 숨졌고, 그것이 4·3의 도화선이 되었습니. 이후 이곳은 무장대 사령관 이덕구의 시신이 효수된 장소로 역사에 남았습니다.`,
 
-    acImageUrl: ['/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg']
+    acImageUrl: [
+      '/images/mapDetail/1/ac_1.svg',
+      '/images/mapDetail/1/ac_2.png',
+      '/images/mapDetail/1/ac_3.png',
+    ],
   },
-{
+  {
     id: '2',
     order: 2,
     imageUrl: '/images/map/고산.png',
@@ -101,6 +105,7 @@ export const places: Place[] = [
 
     subTitle: `임성배 할아버지의 1948년의 기억`,
     subImageUrl:'/images/mapListen/2/main.png',
+
     narrationAudioUrl: '',
     narrationDurationSec: 0,
 
@@ -119,11 +124,15 @@ export const places: Place[] = [
 
     acInfoTitle: '고산 국민 학교',
     acInfoDate: '1948.11.17',
-    acInfoText: '4.3 사건의 중심에 있던 학교로, 주민들을 운동장에 강제로 끌어내어 일렬로 세우거나, 주민들을 학교에 집결 시키는 등, 학생들의 안전한 학교가 수용소로 변질 되었습니다.',
+    acInfoText:
+      '4.3 사건의 중심에 있던 학교로, 주민들을 운동장에 강제로 끌어내어 일렬로 세우거나, 주민들을 학교에 집결 시키는 등, 학생들의 안전한 학교가 수용소로 변질 되었습니다.',
 
-    acImageUrl: ['/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg']
+    acImageUrl: [
+      '/images/mapDetail/2/ac_1.png',
+      '/images/mapDetail/2/ac_2.png',
+      '/images/mapDetail/2/ac_3.png',
+    ],
   },
-
 
   {
     id: '3',
@@ -142,6 +151,7 @@ export const places: Place[] = [
 
     subTitle: `양치권 할아버지의 1949년의 기억`,
     subImageUrl:'/images/mapListen/3/main.png',
+
     narrationAudioUrl: '',
     narrationDurationSec: 0,
 
@@ -161,9 +171,14 @@ export const places: Place[] = [
 
     acInfoTitle: '주정공장 수용소',
     acInfoDate: '1948.12',
-    acInfoText: '중산간 마을에서 붙잡혀 온 도민들을 수용하고 고문 및 즉결 처형했던 비극의 현장입니다. 선무 공작에 속아 하산한 주민들이 재판이나 형무소로 압송되거나 처형당했습니다.',
+    acInfoText:
+      '중산간 마을에서 붙잡혀 온 도민들을 수용하고 고문 및 즉결 처형했던 비극의 현장입니다. 선무 공작에 속아 하산한 주민들이 재판이나 형무소로 압송되거나 처형당했습니다.',
 
-    acImageUrl: ['/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg']
+    acImageUrl: [
+      '/images/mapDetail/3/ac_1.png',
+      '/images/mapDetail/3/ac_2.png',
+      '/images/mapDetail/3/ac_3.png',
+    ],
   },
 
   {
@@ -183,6 +198,7 @@ export const places: Place[] = [
 
     subTitle: '고정순 할머니의 1949년의 기억',
     subImageUrl:'/images/mapListen/4/main.png',
+
     narrationAudioUrl: '',
     narrationDurationSec: 0,
 
@@ -205,9 +221,14 @@ export const places: Place[] = [
 
     acInfoTitle: '너븐숭이 아기 무덤',
     acInfoDate: '1949.01.17',
-    acInfoText: '가장 많은 인명 희생을 가져온 북촌리 학살이 자행된 현장입니다. 어린아이나 무연고자들은 시신을 수숩되지 못하고 임시 매장되어 애기무덤으로 남아있습니다',
+    acInfoText:
+      '가장 많은 인명 희생을 가져온 북촌리 학살이 자행된 현장입니다. 어린아이나 무연고자들은 시신을 수숩되지 못하고 임시 매장되어 애기무덤으로 남아있습니다',
 
-    acImageUrl: ['/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg']
+    acImageUrl: [
+      '/images/mapDetail/4/ac_1.png',
+      '/images/mapDetail/4/ac_2.png',
+      '/images/mapDetail/4/ac_3.png',
+    ],
   },
 
   {
@@ -249,6 +270,10 @@ export const places: Place[] = [
     acInfoDate: '1950.06',
     acInfoText: `초토화 작전으로 집을 잃은 주민들이 한라산으로 대피하자, 60여 명의 토벌대가 상주하며 한라산을 포위하여 강제로 경계나 부식 배송에 강제로 주민을 이용했습니다.`,
 
-    acImageUrl: ['/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg']
+    acImageUrl: [
+      '/images/mapDetail/5/ac_1.png',
+      '/images/mapDetail/5/ac_2.png',
+      '/images/mapDetail/5/ac_3.png',
+    ],
   },
 ]
