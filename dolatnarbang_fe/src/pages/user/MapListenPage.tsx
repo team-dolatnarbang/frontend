@@ -12,7 +12,7 @@ export default function MapListenPage() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
-  console.log(currentTime, duration)
+  console.log(currentTime, duration, isPlaying)
 
   const place = places.find((p) => String(p.order) === siteId)
 
