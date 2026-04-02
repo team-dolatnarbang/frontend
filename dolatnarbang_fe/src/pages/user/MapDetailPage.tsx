@@ -99,6 +99,7 @@ export default function MapDetailPage() {
             justifyContent: 'flex-end',
           }}
         >
+
           <Button
             size="md"
             colorPalette="primary"
@@ -108,7 +109,7 @@ export default function MapDetailPage() {
           </Button>
         </HStack>
       </div>
-      
+
     </VStack>
   )
 }
