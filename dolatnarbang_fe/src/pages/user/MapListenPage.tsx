@@ -109,15 +109,16 @@ export default function MapListenPage() {
         </VStack>
 
         {/* 이미지 영역 */}
-<div className="py-4">
-  <img
-    src="/images/your-image.png"
-    alt="설명"
-    className="w-55.25 h-60.25 rounded-sm object-cover"
-  />
-</div>
+        <div className="py-4">
+          <img
+            src="/images/your-image.png"
+            alt="설명"
+            className="w-55.25 h-60.25 rounded-sm object-cover"
+          />
+        </div>
 
-        <AudioPlayer src={audioUrl || ''} />
+        {/* TODO: 임시 오디오 URL - 실제 데이터로 교체 필요 */}
+        <AudioPlayer src="https://required-teal-bcurxfa0ka.edgeone.app/4_18.mp3" />
 
         <VStack className="gap-6">
           {/* 나레이션 - 실시간 자막 싱크 */}
