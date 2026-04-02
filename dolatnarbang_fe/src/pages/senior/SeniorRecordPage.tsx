@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
+import { useLocation } from 'react-router-dom'
 import { Button, Text, VStack } from '@vapor-ui/core'
 import { uploadContributionAudio } from '../../api/senior'
 
@@ -6,13 +7,16 @@ const MAX_DURATION_SEC = 120
 
 type RecordState = 'idle' | 'recording' | 'recorded' | 'uploading' | 'done'
 
-interface SeniorRecordPageProps {
-  siteId: string
+interface LocationState {
+  contributorName?: string
+  siteId?: string
 }
 
-export default function SeniorRecordPage({ siteId }: SeniorRecordPageProps) {
+export default function SeniorRecordPage() {
+  const location = useLocation()
+  const { contributorName: initialName = '', siteId = '' } = (location.state as LocationState) ?? {}
+
   const [recordState, setRecordState] = useState<RecordState>('idle')
-  const [contributorName, setContributorName] = useState('')
   const [elapsed, setElapsed] = useState(0)
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null)
   const [audioUrl, setAudioUrl] = useState<string | null>(null)
@@ -93,17 +97,13 @@ export default function SeniorRecordPage({ siteId }: SeniorRecordPageProps) {
       setError('녹음을 먼저 완료해 주세요.')
       return
     }
-    if (!contributorName.trim()) {
-      setError('이름을 입력해 주세요.')
-      return
-    }
     setRecordState('uploading')
     setError(null)
 
     try {
       const audioFile = new File([audioBlob], 'recording.webm', { type: audioBlob.type })
       await uploadContributionAudio(
-        { contributorName: contributorName.trim(), siteId, audio: audioFile, durationSec: elapsed },
+        { contributorName: initialName, siteId, audio: audioFile, durationSec: elapsed },
         sessionIdRef.current
       )
       setRecordState('done')
@@ -151,7 +151,7 @@ export default function SeniorRecordPage({ siteId }: SeniorRecordPageProps) {
   }
 
   const isRecording = recordState === 'recording'
-  const canSubmit = !!audioBlob && contributorName.trim().length > 0 && recordState !== 'uploading'
+  const canSubmit = !!audioBlob && recordState !== 'uploading'
 
   return (
     <div className="min-h-screen flex justify-center" style={{ backgroundColor: '#FAFAFA' }}>
@@ -173,30 +173,6 @@ export default function SeniorRecordPage({ siteId }: SeniorRecordPageProps) {
           <Text typography="body2" $css={{ color: 'var(--vapor-color-gray-500)' }}>
             최대 2분까지 녹음할 수 있습니다.
           </Text>
-        </VStack>
-
-        {/* 이름 입력 */}
-        <VStack $css={{ gap: '$200' }}>
-          <Text typography="body1" $css={{ color: 'var(--vapor-color-gray-800)' }}>
-            이름
-          </Text>
-          <input
-            type="text"
-            placeholder="성함을 입력해 주세요"
-            value={contributorName}
-            onChange={(e) => setContributorName(e.target.value)}
-            disabled={isRecording || recordState === 'uploading'}
-            style={{
-              width: '100%',
-              border: '1px solid #d1d5db',
-              borderRadius: '8px',
-              padding: '12px 16px',
-              fontSize: '16px',
-              outline: 'none',
-              boxSizing: 'border-box',
-              backgroundColor: isRecording ? '#f9fafb' : '#fff',
-            }}
-          />
         </VStack>
 
         {/* 녹음 영역 */}
