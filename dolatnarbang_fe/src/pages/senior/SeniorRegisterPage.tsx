@@ -9,6 +9,7 @@ type SeniorFormData = {
   name: string
   phone: string
   siteId: string
+  siteName: string
 }
 
 const TOTAL_STEPS = 4
@@ -20,6 +21,7 @@ export default function SeniorRegisterPage() {
     name: '',
     phone: '',
     siteId: '',
+    siteName: '',
   })
 
   const next = (patch: Partial<SeniorFormData>) => {
@@ -31,7 +33,11 @@ export default function SeniorRegisterPage() {
 
   const handleComplete = () => {
     navigate('/senior/record', {
-      state: { contributorName: formData.name, siteId: formData.siteId },
+      state: {
+        contributorName: formData.name,
+        siteId: formData.siteId,
+        siteName: formData.siteName,
+      },
     })
   }
 
@@ -60,7 +66,7 @@ export default function SeniorRegisterPage() {
           currentStep={step}
           defaultValue={formData.siteId}
           onBack={back}
-          onNext={(siteId) => next({ siteId })}
+          onNext={(siteId, siteName) => next({ siteId, siteName })}
         />
       )}
       {step === 4 && (

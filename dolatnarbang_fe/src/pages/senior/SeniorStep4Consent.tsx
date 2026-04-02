@@ -85,7 +85,9 @@ export default function SeniorStep4Consent({ totalSteps, currentStep, onBack, on
           <VStack $css={{ gap: '$100' }}>
             <Text typography="heading3">목소리 활용 동의</Text>
             <Text typography="body2" foreground="hint-100">
-              기억남서 서비스를 이용하기 위하여{'\n'}약관 동의가 필요합니다
+              기억남서 서비스를 이용하기 위하여
+              <br />
+              약관 동의가 필요합니다
             </Text>
           </VStack>
 
@@ -138,10 +140,7 @@ export default function SeniorStep4Consent({ totalSteps, currentStep, onBack, on
                   <HStack $css={{ gap: '$050', alignItems: 'center' }}>
                     <Text typography="body2">{item.label}</Text>
                     {item.required && (
-                      <Text
-                        typography="body2"
-                        $css={{ color: 'var(--vapor-color-foreground-warning-100)' }}
-                      >
+                      <Text typography="body2" $css={{ color: 'var(--vapor-color-hondi-400)' }}>
                         (필수)
                       </Text>
                     )}
