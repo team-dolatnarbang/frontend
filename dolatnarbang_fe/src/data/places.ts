@@ -49,7 +49,7 @@ export const places: Place[] = [
   {
     id: '1',
     order: 1,
-    imageUrl: '',
+    imageUrl: '/images/map/제주시.svg',
 
     name: '주정 공장',
     region: '제주시',
@@ -84,13 +84,13 @@ export const places: Place[] = [
     acInfoDate: '1948.12',
     acInfoText: '중산간 마을에서 붙잡혀 온 도민들을 수용하고 고문 및 즉결 처형했던 비극의 현장입니다. 선무 공작에 속아 하산한 주민들이 재판이나 형무소로 압송되거나 처형당했습니다.',
 
-    acImageUrl: ['', '', ''],
+    acImageUrl: ['/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg']
   },
 
   {
     id: '2',
     order: 2,
-    imageUrl: '',
+    imageUrl: '/images/map/제주시.svg',
 
     name: '너븐 숭이',
     region: '조천읍',
@@ -134,7 +134,7 @@ export const places: Place[] = [
   {
     id: '3',
     order: 3,
-    imageUrl: '',
+    imageUrl: '/images/map/제주시.svg',
 
     name: '수악 주둔소',
     region: '서귀포시',
@@ -176,7 +176,7 @@ export const places: Place[] = [
   {
     id: '4',
     order: 4,
-    imageUrl: '',
+    imageUrl: '/images/map/제주시.svg',
 
     name: '고산 국민 학교',
     region: '제주시',
@@ -216,7 +216,7 @@ export const places: Place[] = [
   {
     id: '5',
     order: 5,
-    imageUrl: '',
+    imageUrl: '/images/map/제주시.svg',
 
     name: '관덕정',
     region: '제주시',
