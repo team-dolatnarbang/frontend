@@ -90,7 +90,7 @@ export const places: Place[] = [
   {
     id: '2',
     order: 2,
-    imageUrl: '/images/map/제주시.svg',
+    imageUrl: '/images/map/조천읍.svg',
 
     name: '너븐 숭이',
     region: '조천읍',
@@ -134,7 +134,7 @@ export const places: Place[] = [
   {
     id: '3',
     order: 3,
-    imageUrl: '/images/map/제주시.svg',
+    imageUrl: '/images/map/서귀포시.svg',
 
     name: '수악 주둔소',
     region: '서귀포시',
