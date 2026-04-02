@@ -99,7 +99,7 @@ export default function PlaceDetailPage({
               gap: '$200',
             }}
           >
-            <Text as="h1" typography="heading3" $css={{ color: 'white' }}>
+            <Text typography="heading3" $css={{ color: 'white' }}>
               {place.name}
             </Text>
             <HStack $css={{ gap: '$150' }}>
@@ -117,7 +117,7 @@ export default function PlaceDetailPage({
         <VStack $css={{ flex: '1', padding: '$400', gap: '$500' }}>
           {/* 그날의 기억 */}
           <VStack $css={{ gap: '$250' }}>
-            <Text as="h2" typography="heading5" $css={{ color: 'var(--vapor-color-gray-900)' }}>
+            <Text typography="heading5" $css={{ color: 'var(--vapor-color-gray-900)' }}>
               그날의 기억
             </Text>
             <Card.Root $css={{ borderRadius: '$200', boxShadow: 'none' }}>
@@ -142,7 +142,7 @@ export default function PlaceDetailPage({
 
           {/* 그날의 기록 */}
           <VStack $css={{ gap: '$250' }}>
-            <Text as="h2" typography="heading5" $css={{ color: 'var(--vapor-color-gray-900)' }}>
+            <Text typography="heading5" $css={{ color: 'var(--vapor-color-gray-900)' }}>
               그날의 기록
             </Text>
             <Card.Root $css={{ borderRadius: '$200', boxShadow: 'none' }}>

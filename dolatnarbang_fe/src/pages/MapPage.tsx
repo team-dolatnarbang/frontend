@@ -106,7 +106,7 @@ export default function MapPage() {
             borderBottom: '1px solid var(--vapor-color-gray-200)',
           }}
         >
-          <Text as="h1" typography="heading4" $css={{ color: 'var(--vapor-color-gray-900)' }}>
+          <Text typography="heading4" $css={{ color: 'var(--vapor-color-gray-900)' }}>
             제주 4.3 유적지
           </Text>
           <Text typography="body2" $css={{ color: 'var(--vapor-color-gray-500)' }}>

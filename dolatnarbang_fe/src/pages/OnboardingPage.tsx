@@ -18,7 +18,6 @@ export default function OnboardingPage() {
         {/* 서비스 소개 */}
         <VStack $css={{ alignItems: 'center', gap: '$300' }}>
           <Text
-            as="h1"
             typography="heading3"
             $css={{ color: 'var(--vapor-color-gray-900)', textAlign: 'center' }}
           >

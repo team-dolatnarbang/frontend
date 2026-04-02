@@ -24,7 +24,7 @@ export default function LoadingPage() {
         {/* 중앙 서비스명 */}
         <VStack $css={{ flex: '1', justifyContent: 'center', alignItems: 'center' }}>
           <Text
-            as="h1"
+            // as="h1"
             typography="display3"
             $css={{ color: 'var(--vapor-color-gray-900)', textAlign: 'center' }}
           >
