@@ -230,7 +230,11 @@ export default function MapListenPage() {
 
         {/* 하단 버튼 영역 */}
         <Button
-        onClick={() => navigate(`/map/${siteId}/end`)}
+          onClick={() =>
+            isLastPlace
+              ? navigate('/CompletePage') // 마지막이면 /map
+              : nextPlace && navigate(`/map/${nextPlace.id}`) //  다음 장소
+          }
           $css={{
             display: 'flex',
             height: 'var(--vapor-size-dimension-600)',
@@ -240,16 +244,13 @@ export default function MapListenPage() {
             gap: 'var(--vapor-button-gap)',
             alignSelf: 'stretch',
             marginTop: '32px',
+
             color: 'white',
-            fontFamily: 'var(--vapor-typography-fontFamily-sans)',
             fontSize: 'var(--vapor-typography-fontSize-100)',
-            fontStyle: 'normal',
             fontWeight: 400,
-            lineHeight: 'var(--vapor-typography-lineHeight-100)',
-            letterSpacing: 'var(--vapor-typography-letterSpacing-100)',
           }}
         >
-          다음 장소로
+          {isLastPlace ? '탐험 완료' : '다음 장소로'}
         </Button>
       </VStack>
     </VStack>
