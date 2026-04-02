@@ -49,6 +49,85 @@ export const places: Place[] = [
   {
     id: '1',
     order: 1,
+    imageUrl: '/images/map/관덕정.svg',
+
+    name: '관덕정',
+    region: '제주시',
+    detailRegion: '역사 유적',
+
+    contributorLabel: '고순희 할머니',
+    title: '그  마당이 무얼 봤는지',
+
+    acRecord: `1947년 3·1절, 기마경찰의 말발굽에 어린이가 치였다. 경찰의 
+발포로 주민 6명이 숨졌고, 그것이 4·3의 도화선이 되었습니다.`,
+
+    subTitle: '고순희 할머니의 1947년의 기억',
+
+    narrationAudioUrl: '',
+    narrationDurationSec: 0,
+
+    unlocked: false,
+    listenCompleted: false,
+
+    elderStory: {
+      audioUrl: '',
+      Longtext: `나 그때 열 살이었어. 관덕정 앞에 사람이 엄청 모였거든. 3·1절이니까. 근데 갑자기 말이 달려오는 거야. 크고 무서운 말. 사람들이 막 피하고 난리가 났지.
+그러다 탕, 소리가 났어. 사람들이 쓰러지는 거 봤어. 내 옆에 있던 아줌마가 나를 확 안고 엎드렸거든. 땅에 코를 박고 있는데 발소리, 울음소리, 그리고 쓰러진 사람들.
+나는 그때 분명히 알았어. 말 때문이 아니라는 걸. 처음부터 우리를 향한 거였다는 걸.
+관덕정 마당은 그날을 다 봤어. 나도 봤고. 우리 둘 다 잊지 않을 거야.`,
+    },
+
+    acInfoTitle: '관덕정',
+    acInfoDate: '1947.03.31',
+    acInfoText: `1947년 3·1절, 기마경찰의 말발굽에 어린이가 치였다. 
+경찰의 발포로 주민 6명이 숨졌고, 그것이 4·3의 도화선이 되었습니. 이후 이곳은 무장대 사령관 이덕구의 시신이 효수된 장소로 역사에 남았습니다.`,
+
+    acImageUrl: ['/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg']
+  },
+{
+    id: '2',
+    order: 2,
+    imageUrl: '/images/map/고산.svg',
+
+    name: '고산 국민 학교',
+    region: '제주시',
+    detailRegion: '시적지',
+
+    contributorLabel: '임성배 할아버지',
+    title: '운동장에 드리워진 그림자',
+
+    acRecord: `아이들의 웃음소리가 들리던 학교는 한경면 주민들을 가두고 취조
+하는 거대한 수용소가 되어 제주 인구 약 3만 명이 희생되었습니다`,
+
+    subTitle: `임성배 할아버지의 1948년의 기억`,
+
+    narrationAudioUrl: '',
+    narrationDurationSec: 0,
+
+    unlocked: false,
+    listenCompleted: false,
+
+    elderStory: {
+      audioUrl: '',
+      Longtext: `
+어제까지 동무들과 뛰어놀던 운동장이었지. 
+그런데 총을 든 군인들이 우리를 한 줄로 세우더니, 왼쪽으로, 오른쪽으로 가라고 했어.
+그 손짓 하나에 내 친구는 집으로 가고, 내 삼촌은 다시 돌아오지 못할 길로 떠났단다.
+그날 이후로 나한테 학교는 달라졌어. 운동장만 봐도 그 줄이 떠올랐거든. 아이들 웃음소리가 들려도, 난 그날의 침묵이 먼저 생각났어.
+너희는 지금 이 운동장에서 뭘 하고 있니. 뛰어놀고, 친구랑 싸우고, 또 화해하고. 그게 얼마나 당연하지 않은 건지, 나는 알아. 그러니까 너희는 그 당연한 것들을 당연하게 여기지 말았으면 해. 그게 내가 너희한테 바라는 전부야.`,
+    },
+
+    acInfoTitle: '고산 국민 학교',
+    acInfoDate: '1948.11.17',
+    acInfoText: '4.3 사건의 중심에 있던 학교로, 주민들을 운동장에 강제로 끌어내어 일렬로 세우거나, 주민들을 학교에 집결 시키는 등, 학생들의 안전한 학교가 수용소로 변질 되었습니다.',
+
+    acImageUrl: ['/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg']
+  },
+
+
+  {
+    id: '3',
+    order: 3,
     imageUrl: '/images/map/제주시.svg',
 
     name: '주정 공장',
@@ -88,8 +167,8 @@ export const places: Place[] = [
   },
 
   {
-    id: '2',
-    order: 2,
+    id: '4',
+    order: 4,
     imageUrl: '/images/map/조천읍.svg',
 
     name: '너븐 숭이',
@@ -132,8 +211,8 @@ export const places: Place[] = [
   },
 
   {
-    id: '3',
-    order: 3,
+    id: '5',
+    order: 5,
     imageUrl: '/images/map/서귀포시.svg',
 
     name: '수악 주둔소',
@@ -169,85 +248,6 @@ export const places: Place[] = [
     acInfoTitle: '수악 주둔소',
     acInfoDate: '1950.06',
     acInfoText: `초토화 작전으로 집을 잃은 주민들이 한라산으로 대피하자, 60여 명의 토벌대가 상주하며 한라산을 포위하여 강제로 경계나 부식 배송에 강제로 주민을 이용했습니다.`,
-
-    acImageUrl: ['/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg']
-  },
-
-  {
-    id: '4',
-    order: 4,
-    imageUrl: '/images/map/제주시.svg',
-
-    name: '고산 국민 학교',
-    region: '제주시',
-    detailRegion: '시적지',
-
-    contributorLabel: '임성배 할아버지',
-    title: '운동장에 드리워진 그림자',
-
-    acRecord: `아이들의 웃음소리가 들리던 학교는 한경면 주민들을 가두고 취조
-하는 거대한 수용소가 되어 제주 인구 약 3만 명이 희생되었습니다`,
-
-    subTitle: `임성배 할아버지의 1948년의 기억`,
-
-    narrationAudioUrl: '',
-    narrationDurationSec: 0,
-
-    unlocked: false,
-    listenCompleted: false,
-
-    elderStory: {
-      audioUrl: '',
-      Longtext: `
-어제까지 동무들과 뛰어놀던 운동장이었지. 
-그런데 총을 든 군인들이 우리를 한 줄로 세우더니, 왼쪽으로, 오른쪽으로 가라고 했어.
-그 손짓 하나에 내 친구는 집으로 가고, 내 삼촌은 다시 돌아오지 못할 길로 떠났단다.
-그날 이후로 나한테 학교는 달라졌어. 운동장만 봐도 그 줄이 떠올랐거든. 아이들 웃음소리가 들려도, 난 그날의 침묵이 먼저 생각났어.
-너희는 지금 이 운동장에서 뭘 하고 있니. 뛰어놀고, 친구랑 싸우고, 또 화해하고. 그게 얼마나 당연하지 않은 건지, 나는 알아. 그러니까 너희는 그 당연한 것들을 당연하게 여기지 말았으면 해. 그게 내가 너희한테 바라는 전부야.`,
-    },
-
-    acInfoTitle: '고산 국민 학교',
-    acInfoDate: '1948.11.17',
-    acInfoText: '4.3 사건의 중심에 있던 학교로, 주민들을 운동장에 강제로 끌어내어 일렬로 세우거나, 주민들을 학교에 집결 시키는 등, 학생들의 안전한 학교가 수용소로 변질 되었습니다.',
-
-    acImageUrl: ['/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg']
-  },
-
-  {
-    id: '5',
-    order: 5,
-    imageUrl: '/images/map/제주시.svg',
-
-    name: '관덕정',
-    region: '제주시',
-    detailRegion: '역사 유적',
-
-    contributorLabel: '고순희 할머니',
-    title: '그  마당이 무얼 봤는지',
-
-    acRecord: `1947년 3·1절, 기마경찰의 말발굽에 어린이가 치였다. 경찰의 
-발포로 주민 6명이 숨졌고, 그것이 4·3의 도화선이 되었습니다.`,
-
-    subTitle: '고순희 할머니의 1947년의 기억',
-
-    narrationAudioUrl: '',
-    narrationDurationSec: 0,
-
-    unlocked: false,
-    listenCompleted: false,
-
-    elderStory: {
-      audioUrl: '',
-      Longtext: `나 그때 열 살이었어. 관덕정 앞에 사람이 엄청 모였거든. 3·1절이니까. 근데 갑자기 말이 달려오는 거야. 크고 무서운 말. 사람들이 막 피하고 난리가 났지.
-그러다 탕, 소리가 났어. 사람들이 쓰러지는 거 봤어. 내 옆에 있던 아줌마가 나를 확 안고 엎드렸거든. 땅에 코를 박고 있는데 발소리, 울음소리, 그리고 쓰러진 사람들.
-나는 그때 분명히 알았어. 말 때문이 아니라는 걸. 처음부터 우리를 향한 거였다는 걸.
-관덕정 마당은 그날을 다 봤어. 나도 봤고. 우리 둘 다 잊지 않을 거야.`,
-    },
-
-    acInfoTitle: '관덕정',
-    acInfoDate: '1947.03.31',
-    acInfoText: `1947년 3·1절, 기마경찰의 말발굽에 어린이가 치였다. 
-경찰의 발포로 주민 6명이 숨졌고, 그것이 4·3의 도화선이 되었습니. 이후 이곳은 무장대 사령관 이덕구의 시신이 효수된 장소로 역사에 남았습니다.`,
 
     acImageUrl: ['/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg']
   },

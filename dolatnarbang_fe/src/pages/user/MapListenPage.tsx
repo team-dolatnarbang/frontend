@@ -108,9 +108,13 @@ export default function MapListenPage() {
         </VStack>
 
         {/* 이미지 영역 */}
-        <div className="py-4">
-          <Box className="w-55.25 h-60.25 bg-(--vapor-color-gray-100) rounded-sm" />
-        </div>
+<div className="py-4">
+  <img
+    src="/images/your-image.png"
+    alt="설명"
+    className="w-55.25 h-60.25 rounded-sm object-cover"
+  />
+</div>
 
         <AudioPlayer src={audioUrl || ''} />
 
