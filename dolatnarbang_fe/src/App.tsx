@@ -8,6 +8,7 @@ import MapListenPage from './pages/user/MapListenPage'
 import CompletePage from './pages/user/CompletePage'
 import SeniorRecordPage from './pages/senior/SeniorRecordPage'
 import SeniorRegisterPage from './pages/senior/SeniorRegisterPage'
+import SeniorEnd from './pages/senior/SeniorEnd'
 import TributePage from './pages/user/TributePage'
 import TributeFeedPage from './pages/user/TributeFeedPage'
 
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
         <Route path="/senior/register" element={<SeniorRegisterPage />} />
         <Route path="/senior/record" element={<SeniorRecordPage />} />
+        <Route path="/senior/end" element={<SeniorEnd />} />
       </Routes>
     </BrowserRouter>
   )
