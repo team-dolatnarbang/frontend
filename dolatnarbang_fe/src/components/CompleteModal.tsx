@@ -1,4 +1,4 @@
-import { Dialog, Button, Text, VStack, Box } from '@vapor-ui/core'
+import { Dialog, Button, Text, VStack } from '@vapor-ui/core'
 
 const ORDINAL = ['첫', '두', '세', '네', '다섯'] as const
 
@@ -21,7 +21,7 @@ export default function CompleteModal({
   storyTitle,
   isLast = false,
 }: CompleteModalProps) {
-  const subtitle = [siteName, elderName, storyTitle].filter(Boolean).join(' · ')
+  const subtitle = [siteName, elderName].filter(Boolean).join(' · ')
   const ordinalLabel = ORDINAL[petalOrder - 1] ?? String(petalOrder)
 
   return (
