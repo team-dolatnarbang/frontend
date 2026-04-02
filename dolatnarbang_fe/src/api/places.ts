@@ -1,19 +1,31 @@
 import apiClient from './apiClient'
-import type { PlaceItem } from '../types/place'
+import type {
+  SiteListResponse,
+  SiteDetail,
+  CompleteListenRequest,
+  CompleteListenResponse,
+} from '../types/place'
 
-// 전체 장소 목록 조회
-export const getPlaces = async (): Promise<PlaceItem[]> => {
-  const response = await apiClient.get<PlaceItem[]>('/places')
+// 1. GET /sites
+export const getSites = async (): Promise<SiteListResponse> => {
+  const response = await apiClient.get<SiteListResponse>('/sites')
   return response.data
 }
 
-// 특정 장소 단건 조회
-export const getPlaceById = async (id: string): Promise<PlaceItem> => {
-  const response = await apiClient.get<PlaceItem>(`/places/${id}`)
+// 2. GET /sites/:siteId
+export const getSiteById = async (siteId: string): Promise<SiteDetail> => {
+  const response = await apiClient.get<SiteDetail>(`/sites/${siteId}`)
   return response.data
 }
 
-// 나레이션 청취 완료 처리
-export const markListenCompleted = async (id: string): Promise<void> => {
-  await apiClient.patch(`/places/${id}/listen-completed`)
+// 3. POST /sites/:siteId/complete-listen
+export const completeListenSite = async (
+  siteId: string,
+  body?: CompleteListenRequest,
+): Promise<CompleteListenResponse> => {
+  const response = await apiClient.post<CompleteListenResponse>(
+    `/sites/${siteId}/complete-listen`,
+    body,
+  )
+  return response.data
 }
