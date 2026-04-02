@@ -3,19 +3,16 @@ import { v4 as uuidv4 } from 'uuid'
 import axios from 'axios'
 import { Box, Button, Text, TextInput, Textarea, VStack } from '@vapor-ui/core'
 import { createTribute } from '../../api/user'
+import { useNavigate } from 'react-router-dom'
 
 const MAX_MESSAGE_LENGTH = 300
 
-interface TributePageProps {
-  onBack: () => void
-  onComplete: () => void
-}
-
-export default function TributePage({ onBack, onComplete }: TributePageProps) {
+export default function TributePage() {
   const [nickname, setNickname] = useState('')
   const [message, setMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const navigate = useNavigate()
 
   const handleSubmit = async () => {
     if (!nickname.trim()) {
@@ -36,7 +33,7 @@ export default function TributePage({ onBack, onComplete }: TributePageProps) {
         message: message.trim(),
         idempotencyKey: uuidv4(),
       })
-      onComplete()
+      navigate('/tribute/feed')
     } catch (err) {
       if (axios.isAxiosError(err)) {
         if (err.response?.status === 403) {

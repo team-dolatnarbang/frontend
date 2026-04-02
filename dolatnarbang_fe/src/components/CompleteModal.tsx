@@ -18,7 +18,6 @@ export default function CompleteModal({
   petalOrder,
   siteName,
   elderName,
-  storyTitle,
   isLast = false,
 }: CompleteModalProps) {
   const subtitle = [siteName, elderName].filter(Boolean).join(' · ')
