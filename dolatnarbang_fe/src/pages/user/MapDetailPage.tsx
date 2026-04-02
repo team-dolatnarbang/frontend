@@ -19,15 +19,14 @@ export default function MapDetailPage() {
         style={{
           position: 'relative',
           width: '100%',
-          height: '454px',
+          height: '464px',
           backgroundColor: '#D9D9D9',
           flexShrink: 0,
           overflow: 'hidden',
         }}
-      >
-      </div>
+      ></div>
 
-      <div className="px-5 py-2.5">
+      <div className="px-5 py-4.5">
         {/* 장소명 + 뱃지 */}
         <HStack
           $css={{
@@ -36,17 +35,46 @@ export default function MapDetailPage() {
         >
           <Text typography="heading3">{place.name}</Text>
           <HStack $css={{ alignItems: 'center', gap: '$100' }}>
-            <Badge className="px-3 py-2" colorPalette="danger" shape="pill" size="lg">
+            <Badge
+              size="md"
+              $css={{
+                display: 'flex',
+                width: '57px',
+                padding: '2px',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '8px',
+                borderRadius: '100px',
+                border: '1px solid var(--vapor-color-hondi-400)',
+                background: 'var(--vapor-color-hondi-050)',
+                color: 'var(--vapor-color-hondi-400)',
+              }}
+            >
               {place.location}
             </Badge>
-            <Badge className="px-3 py-2" colorPalette="hint" shape="pill" size="lg">
+            <Badge
+              shape="pill"
+              size="md"
+              $css={{
+                display: 'flex',
+                minWidth: '57px',
+                padding: '2px 8px',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '8px',
+                border: '1px solid var(--vapor-color-green-400)',
+                background: 'var(--vapor-color-green-050)',
+                color: 'var(--vapor-color-green-400)',
+              }}
+            >
               {place.category}
             </Badge>
           </HStack>
         </HStack>
       </div>
+
       {/* 그날의 기억 */}
-      <div className="px-5 py-2.5">
+      <div className="">
         <VStack
           $css={{
             paddingTop: '$100',
@@ -70,7 +98,7 @@ export default function MapDetailPage() {
         </VStack>
       </div>
       {/* 그날의 기록 */}
-      <div className="px-5 py-2.5">
+      <div className="">
         <VStack
           $css={{
             paddingTop: '$100',
@@ -92,24 +120,35 @@ export default function MapDetailPage() {
         </VStack>
       </div>
       {/* 들어보기 버튼 */}
-      <div className="px-5">
-        <HStack
+      <div
+        className="px-5 py-5.5"
+        style={{
+          display: 'flex',
+          justifyContent: 'center', // 👈 가로 중앙
+        }}
+      >
+        <Button
+          onClick={() => navigate(`/map/${siteId}/listen`)}
           $css={{
+            width: '335px',
+            height: 'var(--vapor-size-dimension-500)',
+            padding: '0 var(--vapor-size-space-200)',
+
+            justifyContent: 'center',
             alignItems: 'center',
-            justifyContent: 'flex-end',
+            gap: 'var(--vapor-button-gap)',
+
+            borderRadius: 'var(--vapor-size-borderRadius-300)',
+            background: 'var(--vapor-color-hondi-400)',
+
+            boxSizing: 'border-box',
+
+            color: 'white',
           }}
         >
-
-          <Button
-            size="md"
-            colorPalette="primary"
-            onClick={() => navigate(`/map/${siteId}/listen`)}
-          >
-            {place.buttonLabel}
-          </Button>
-        </HStack>
+          {place.buttonLabel}
+        </Button>
       </div>
-
     </VStack>
   )
 }
