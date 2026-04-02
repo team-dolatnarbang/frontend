@@ -8,6 +8,8 @@ import MapDetailPageEnd from './pages/user/MapDetailPageEnd'
 import CompletePage from './pages/user/CompletePage'
 import SeniorRecordPage from './pages/senior/SeniorRecordPage'
 import SeniorRegisterPage from './pages/senior/SeniorRegisterPage'
+import TributePage from './pages/user/TributePage'
+import TributeFeedPage from './pages/user/TributeFeedPage'
 
 export default function App() {
   return (
@@ -20,6 +22,8 @@ export default function App() {
         <Route path="/map/:siteId/listen" element={<MapListenPage />} />
         <Route path="/map/:siteId/end" element={<MapDetailPageEnd />} />
         <Route path="/complete" element={<CompletePage />} />
+        <Route path="/tribute" element={<TributePage />} />
+        <Route path="/tribute/feed" element={<TributeFeedPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
         <Route path="/senior/register" element={<SeniorRegisterPage />} />
         <Route path="/senior/record" element={<SeniorRecordPage />} />

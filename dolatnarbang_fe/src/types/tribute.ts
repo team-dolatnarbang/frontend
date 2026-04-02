@@ -1,6 +1,5 @@
 // 4. POST /tributes - 헌화 생성
 export interface CreateTributeRequest {
-  siteId: string
   message: string
   nickname: string
   idempotencyKey?: string
@@ -16,7 +15,6 @@ export interface CreateTributeResponse {
 // 5. GET /tributes - 헌화 목록 (페이지네이션)
 export interface TributeItem {
   id: string
-  siteId: string
   siteName: string
   message: string
   nickname: string
