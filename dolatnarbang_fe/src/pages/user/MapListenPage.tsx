@@ -230,6 +230,7 @@ export default function MapListenPage() {
 
         {/* 하단 버튼 영역 */}
         <Button
+        onClick={() => navigate(`/map/${siteId}/end`)}
           $css={{
             display: 'flex',
             height: 'var(--vapor-size-dimension-600)',
