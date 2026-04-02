@@ -128,7 +128,7 @@ export const places: Place[] = [
     acInfoDate: '1949.01.17',
     acInfoText: '가장 많은 인명 희생을 가져온 북촌리 학살이 자행된 현장입니다. 어린아이나 무연고자들은 시신을 수숩되지 못하고 임시 매장되어 애기무덤으로 남아있습니다',
 
-    acImageUrl: ['', '', ''],
+    acImageUrl: ['/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg']
   },
 
   {
@@ -170,7 +170,7 @@ export const places: Place[] = [
     acInfoDate: '1950.06',
     acInfoText: `초토화 작전으로 집을 잃은 주민들이 한라산으로 대피하자, 60여 명의 토벌대가 상주하며 한라산을 포위하여 강제로 경계나 부식 배송에 강제로 주민을 이용했습니다.`,
 
-    acImageUrl: ['', '', ''],
+    acImageUrl: ['/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg']
   },
 
   {
@@ -210,7 +210,7 @@ export const places: Place[] = [
     acInfoDate: '1948.11.17',
     acInfoText: '4.3 사건의 중심에 있던 학교로, 주민들을 운동장에 강제로 끌어내어 일렬로 세우거나, 주민들을 학교에 집결 시키는 등, 학생들의 안전한 학교가 수용소로 변질 되었습니다.',
 
-    acImageUrl: ['', '', ''],
+    acImageUrl: ['/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg']
   },
 
   {
@@ -249,6 +249,6 @@ export const places: Place[] = [
     acInfoText: `1947년 3·1절, 기마경찰의 말발굽에 어린이가 치였다. 
 경찰의 발포로 주민 6명이 숨졌고, 그것이 4·3의 도화선이 되었습니. 이후 이곳은 무장대 사령관 이덕구의 시신이 효수된 장소로 역사에 남았습니다.`,
 
-    acImageUrl: ['', '', ''],
+    acImageUrl: ['/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg', '/images/mapDetail/1/ac_1.svg']
   },
 ]
