@@ -194,9 +194,7 @@ export default function MapListenPage() {
           {/* 나레이션 - 실시간 자막 싱크 */}
           <VStack className="rounded-lg bg-(--vapor-color-gray-100) py-4 px-4">
             <Text className="text-(--vapor-color-hondi-500) font-bold">나레이션</Text>
-            <Text className="pt-4 text-(--vapor-color-gray-600)">
-              {place.elderStory.Longtext}
-            </Text>
+            <Text className="pt-4 text-(--vapor-color-gray-600)">{place.elderStory.Longtext}</Text>
           </VStack>
 
           {/* 사건 기록 */}
@@ -208,36 +206,56 @@ export default function MapListenPage() {
                 {place.acInfoDate}
               </Text>
             </HStack>
-            <Text className="pt-2 text-(--vapor-color-gray-600)">
-              {place.acInfoText}
-            </Text>
+            <Text className="pt-2 text-(--vapor-color-gray-600)">{place.acInfoText}</Text>
           </VStack>
 
           {/* 현장 살펴보기 */}
           <VStack className="rounded-lg bg-(--vapor-color-gray-100) py-4 px-4">
             <Text className="text-(--vapor-color-hondi-500) font-bold">현장 살펴보기</Text>
             <HStack className="pt-4 gap-4">
-  {place.acImageUrl.map((img, index) => (
-    <Box
-      key={index}
-      className="w-22.5 h-33.25 rounded-sm overflow-hidden relative"
-      style={{
-        backgroundImage: `url(${img})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    />
-  ))}
-</HStack>
+              {place.acImageUrl.map((img, index) => (
+                <Box
+                  key={index}
+                  className="w-22.5 h-33.25 rounded-sm overflow-hidden relative"
+                  style={{
+                    backgroundImage: `url(${img})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}
+                />
+              ))}
+            </HStack>
           </VStack>
         </VStack>
 
         {/* 하단 버튼 영역 */}
         <Button
-          onClick={() =>
-            isLastPlace
-              ? navigate('/complete') // 마지막이면 /map
-              : nextPlace && navigate(`/map/${nextPlace.id}`) //  다음 장소
+          onClick={
+            () =>
+              isLastPlace
+                ? navigate('/complete', {
+                    state: {
+                      completedModal: {
+                        petalOrder: place.order,
+                        siteName: place.name,
+                        elderName: place.contributorLabel,
+                        storyTitle: place.title,
+                        isLast: true,
+                      },
+                    },
+                  })
+                : nextPlace &&
+                  navigate(`/map/${nextPlace.order}`, {
+                    state: {
+                      completedModal: {
+                        petalOrder: place.order,
+                        siteName: place.name,
+                        elderName: place.contributorLabel,
+                        storyTitle: place.title,
+                        isLast: false,
+                      },
+                    },
+                  }) //  다음 장소
           }
           $css={{
             display: 'flex',
