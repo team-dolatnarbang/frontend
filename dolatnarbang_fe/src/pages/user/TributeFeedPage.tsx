@@ -8,8 +8,7 @@ const MOCK_ITEMS: TributeItem[] = [
     id: '1',
     siteName: '제주4·3평화공원',
     nickname: '돌맹이',
-    message:
-      '실제 경험담이라는 점이 너무 놀라웠어요 더 나은 삶을 살아가시길 바랍니다',
+    message: '실제 경험담이라는 점이 너무 놀라웠어요 더 나은 삶을 살아가시길 바랍니다',
     camelliaCount: 3,
     createdAt: new Date().toISOString(),
   },
@@ -17,8 +16,7 @@ const MOCK_ITEMS: TributeItem[] = [
     id: '2',
     siteName: '북촌 너븐숭이',
     nickname: '감귤',
-    message:
-      '어르신들의 생생한 이야기를 들을 수 있어서 좋았습니다',
+    message: '어르신들의 생생한 이야기를 들을 수 있어서 좋았습니다',
     camelliaCount: 5,
     createdAt: new Date(Date.now() - 3 * 86400000).toISOString(),
   },
@@ -35,12 +33,10 @@ const MOCK_ITEMS: TributeItem[] = [
     id: '4',
     siteName: '알뜨르 비행장',
     nickname: '캣츠',
-    message:
-      '이야기만 모아서 많이 듣고싶어요!',
+    message: '이야기만 모아서 많이 듣고싶어요!',
     camelliaCount: 4,
     createdAt: new Date(Date.now() - 20 * 86400000).toISOString(),
   },
-
 ]
 
 function formatRelativeTime(dateStr: string): string {
@@ -71,7 +67,6 @@ export default function TributeFeedPage() {
         maxWidth: '375px',
         margin: '0 auto',
         minHeight: '100vh',
-        backgroundColor: '#FAFAFA',
         position: 'relative',
       }}
     >
@@ -83,6 +78,7 @@ export default function TributeFeedPage() {
           display: 'flex',
           alignItems: 'center',
           cursor: 'pointer',
+          marginTop: '30px',
         }}
         onClick={() => navigate(-1)}
       >
@@ -173,7 +169,7 @@ export default function TributeFeedPage() {
                 color: '#5D5D5D',
                 lineHeight: '1.5714',
 
-                display: '-webkit-box', 
+                display: '-webkit-box',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
               }}

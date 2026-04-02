@@ -23,7 +23,7 @@ export default function CompletePage() {
   const locationState = location.state as CompletePageLocationState | null
   const [copied, setCopied] = useState(false)
   const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(
-    Boolean(locationState?.completedModal),
+    Boolean(locationState?.completedModal)
   )
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function CompletePage() {
   }
 
   const onReview = () => {
-    navigate('/tribute')
+    navigate('/tribute/feed')
   }
 
   const handleCloseCompleteModal = () => {
