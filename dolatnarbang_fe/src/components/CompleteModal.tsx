@@ -56,13 +56,10 @@ export default function CompleteModal({
               alignSelf: 'stretch',
             }}
           >
-            {/* 임시 이미지 */}
-            <Box
-              $css={{
-                width: '59px',
-                height: '59px',
-                background: 'var(--vapor-color-hondi-400)',
-              }}
+            <img
+              src="/images/petal.png"
+              alt="꽃잎"
+              style={{ width: '59px', height: '59px', objectFit: 'contain' }}
             />
 
             <VStack
