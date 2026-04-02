@@ -1,20 +1,7 @@
 import { useState } from 'react'
 import { Box, Button, Text, VStack } from '@vapor-ui/core'
 import StepBar from '../../components/StepBar'
-
-interface Site {
-  id: string
-  name: string
-}
-
-const SITES: Site[] = [
-  { id: '1', name: '관덕정' },
-  { id: '2', name: '주정 공장' },
-  { id: '3', name: '너븐 숭이' },
-  { id: '4', name: '수악\n주둔소' },
-  { id: '5', name: '고산\n국민학교' },
-  { id: '6', name: '기타' },
-]
+import { useSites } from '../../hooks/useSites'
 
 interface Props {
   totalSteps: number
@@ -32,6 +19,8 @@ export default function SeniorStep3Site({
   onNext,
 }: Props) {
   const [selectedId, setSelectedId] = useState(defaultValue)
+  const { data, isLoading, isError } = useSites()
+  const sites = data?.sites ?? []
 
   return (
     <Box
@@ -70,32 +59,45 @@ export default function SeniorStep3Site({
               marginTop: '81px',
             }}
           >
-            {SITES.map((site) => {
-              const isSelected = selectedId === site.id
-              return (
-                <button
-                  key={site.id}
-                  onClick={() => setSelectedId(site.id)}
-                  style={{
-                    padding: '20px 8px',
-                    borderRadius: '12px',
-                    border: '1px solid',
-                    borderColor: isSelected ? 'var(--vapor-color-hondi-400)' : '#e5e7eb',
-                    backgroundColor: isSelected ? 'var(--vapor-color-hondi-100)' : '#f9fafb',
-                    color: 'var(--vapor-color-foreground-normal-200)',
-                    cursor: 'pointer',
-                    fontSize: '15px',
-                    fontWeight: isSelected ? 600 : 400,
-                    whiteSpace: 'pre-line',
-                    textAlign: 'center',
-                    lineHeight: '1.4',
-                    height: '126px',
-                  }}
-                >
-                  {site.name}
-                </button>
-              )
-            })}
+            {isLoading && (
+              <Text typography="body1" $css={{ gridColumn: '1 / -1' }}>
+                장소 목록을 불러오는 중…
+              </Text>
+            )}
+            {isError && (
+              <Text typography="body1" $css={{ gridColumn: '1 / -1', color: '#b91c1c' }}>
+                장소 목록을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.
+              </Text>
+            )}
+            {!isLoading &&
+              !isError &&
+              sites.map((site) => {
+                const isSelected = selectedId === site.id
+                return (
+                  <button
+                    key={site.id}
+                    type="button"
+                    onClick={() => setSelectedId(site.id)}
+                    style={{
+                      padding: '20px 8px',
+                      borderRadius: '12px',
+                      border: '1px solid',
+                      borderColor: isSelected ? 'var(--vapor-color-hondi-400)' : '#e5e7eb',
+                      backgroundColor: isSelected ? 'var(--vapor-color-hondi-100)' : '#f9fafb',
+                      color: 'var(--vapor-color-foreground-normal-200)',
+                      cursor: 'pointer',
+                      fontSize: '15px',
+                      fontWeight: isSelected ? 600 : 400,
+                      whiteSpace: 'pre-line',
+                      textAlign: 'center',
+                      lineHeight: '1.4',
+                      height: '126px',
+                    }}
+                  >
+                    {site.name}
+                  </button>
+                )
+              })}
           </Box>
         </VStack>
 
@@ -118,7 +120,7 @@ export default function SeniorStep3Site({
 
             color: 'white',
           }}
-          disabled={!selectedId}
+          disabled={!selectedId || isLoading || isError || sites.length === 0}
           onClick={() => onNext(selectedId)}
         >
           다음
