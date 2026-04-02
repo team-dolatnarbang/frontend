@@ -264,9 +264,7 @@ export default function MapListenPage() {
       </div>
 
       {/* 나레이션 */}
-      <div
-        style={{ display: 'flex', flexDirection: 'column', padding: '18px 20px', gap: '8px' }}
-      >
+      <div style={{ display: 'flex', flexDirection: 'column', padding: '18px 20px', gap: '8px' }}>
         <span style={sectionTitleStyle}>나레이션</span>
         <div
           style={{
@@ -308,9 +306,7 @@ export default function MapListenPage() {
       </div>
 
       {/* 그날의 기록 */}
-      <div
-        style={{ display: 'flex', flexDirection: 'column', padding: '18px 20px', gap: '8px' }}
-      >
+      <div style={{ display: 'flex', flexDirection: 'column', padding: '18px 20px', gap: '8px' }}>
         <span style={sectionTitleStyle}>그날의 기록</span>
         <div style={{ padding: '14px 12px', backgroundColor: '#EDEDED', borderRadius: '8px' }}>
           <span style={{ ...bodyTextStyle, display: 'block' }}>{place.record}</span>
@@ -318,9 +314,7 @@ export default function MapListenPage() {
       </div>
 
       {/* 관련 이미지 둘러보기 */}
-      <div
-        style={{ display: 'flex', flexDirection: 'column', padding: '18px 20px', gap: '8px' }}
-      >
+      <div style={{ display: 'flex', flexDirection: 'column', padding: '18px 20px', gap: '8px' }}>
         <span style={sectionTitleStyle}>관련 이미지 둘러보기</span>
         <div
           style={{
