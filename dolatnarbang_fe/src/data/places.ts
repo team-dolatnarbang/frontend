@@ -23,7 +23,7 @@ export interface Place {
   // + 들어보기 page
 
   subTitle: string // 부제목
-  
+  subImageUrl: string
   // 오디오
   narrationAudioUrl: string
   narrationDurationSec: number
@@ -62,7 +62,7 @@ export const places: Place[] = [
 발포로 주민 6명이 숨졌고, 그것이 4·3의 도화선이 되었습니다.`,
 
     subTitle: '고순희 할머니의 1947년의 기억',
-
+    subImageUrl:'',
     narrationAudioUrl: '',
     narrationDurationSec: 0,
 
@@ -100,7 +100,7 @@ export const places: Place[] = [
 하는 거대한 수용소가 되어 제주 인구 약 3만 명이 희생되었습니다`,
 
     subTitle: `임성배 할아버지의 1948년의 기억`,
-
+    subImageUrl:'',
     narrationAudioUrl: '',
     narrationDurationSec: 0,
 
@@ -141,7 +141,7 @@ export const places: Place[] = [
 끝내 돌아오지 못하고, 6.25직후 보도 연맹학살로 희생되었습니다.`,
 
     subTitle: `양치권 할아버지의 1949년의 기억`,
-
+    subImageUrl:'',
     narrationAudioUrl: '',
     narrationDurationSec: 0,
 
@@ -182,7 +182,7 @@ export const places: Place[] = [
 돌아가지 못한 영혼들이 임시 매장되어 애기무덤으로 남아있습니다`,
 
     subTitle: '고정순 할머니의 1949년의 기억',
-
+    subImageUrl:'',
     narrationAudioUrl: '',
     narrationDurationSec: 0,
 
@@ -226,7 +226,7 @@ export const places: Place[] = [
 군경토벌대는 주민들을 억압하기 위해 수악 주둔소를 세웠습니다`,
 
     subTitle: '양자경 이모의 1949년의 기억',
-
+    subImageUrl:'',
     narrationAudioUrl: '',
     narrationDurationSec: 0,
 
