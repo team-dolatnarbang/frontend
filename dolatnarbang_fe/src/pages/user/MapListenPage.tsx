@@ -233,7 +233,17 @@ export default function MapListenPage() {
           onClick={
             () =>
               isLastPlace
-                ? navigate('/complete') // 마지막이면 /map
+                ? navigate('/complete', {
+                    state: {
+                      completedModal: {
+                        petalOrder: place.order,
+                        siteName: place.name,
+                        elderName: place.contributorLabel,
+                        storyTitle: place.title,
+                        isLast: true,
+                      },
+                    },
+                  })
                 : nextPlace &&
                   navigate(`/map/${nextPlace.order}`, {
                     state: {
