@@ -1,48 +1,24 @@
-import { Badge, Box, Button, HStack, IconButton, Text, VStack } from '@vapor-ui/core'
-import {
-  BackPageOutlineIcon,
-  ForwardPageOutlineIcon,
-  PauseOutlineIcon,
-  PlayOutlineIcon,
-} from '@vapor-ui/icons'
+import { Badge, Box, Button, HStack, Text, VStack } from '@vapor-ui/core'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { places } from '../../data/places'
 import AudioPlayer from '../../components/AudioPlayer'
-
-function formatTime(seconds: number): string {
-  const m = Math.floor(seconds / 60)
-  const s = Math.floor(seconds % 60)
-  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
-}
-
-// function getActiveIndex(narration: NarrationLine[], currentTime: number): number {
-//   return narration.findIndex((line) => currentTime >= line.start && currentTime < line.end)
-// }
 
 export default function MapListenPage() {
   const { siteId } = useParams()
   const navigate = useNavigate()
 
   const audioRef = useRef<HTMLAudioElement>(null)
-  // const activeLineRef = useRef<HTMLDivElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
+  console.log(currentTime, duration)
 
   const place = places.find((p) => String(p.order) === siteId)
-
-  // const activeLineIndex = place ? getActiveIndex(place.narration, currentTime) : -1
 
   useEffect(() => {
     if (!place) navigate('/map', { replace: true })
   }, [place, navigate])
-
-  // useEffect(() => {
-  //   if (activeLineIndex >= 0) {
-  //     activeLineRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-  //   }
-  // }, [activeLineIndex])
 
   if (!place) return null
 
@@ -51,36 +27,6 @@ export default function MapListenPage() {
   const nextPlace = places[currentIndex + 1]
 
   const audioUrl = place.elderStory.audioUrl
-
-  const togglePlay = () => {
-    const audio = audioRef.current
-    if (!audio) return
-    if (isPlaying) {
-      audio.pause()
-    } else {
-      audio.play()
-    }
-    setIsPlaying(!isPlaying)
-  }
-
-  const handleBack = () => {
-    if (!audioRef.current) return
-    audioRef.current.currentTime = Math.max(0, currentTime - 10)
-  }
-
-  const handleForward = () => {
-    if (!audioRef.current) return
-    audioRef.current.currentTime = Math.min(duration, currentTime + 10)
-  }
-
-  const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!audioRef.current || duration === 0) return
-    const rect = e.currentTarget.getBoundingClientRect()
-    const ratio = (e.clientX - rect.left) / rect.width
-    audioRef.current.currentTime = ratio * duration
-  }
-
-  const progress = duration > 0 ? (currentTime / duration) * 100 : 0
 
   return (
     <VStack className="flex items-center w-full">
@@ -94,7 +40,7 @@ export default function MapListenPage() {
         />
 
         {/* 장소 뱃지 + 제목 + 부제목 */}
-        <VStack className="gap-2 items-start mt-4.5">
+        <VStack className="gap-2 items-start mt-6 w-full">
           <Badge
             shape="pill"
             className="px-1.75 py-0.5 outline-1 outline-(--vapor-color-green-400) bg-(--vapor-color-green-050) text-(--vapor-color-green-700)"
