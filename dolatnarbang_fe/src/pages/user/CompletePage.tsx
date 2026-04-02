@@ -3,9 +3,12 @@ import { Box, Button, Text, VStack } from '@vapor-ui/core'
 
 import type { StatsResponse } from '../../types/stats'
 import { getStats } from '../../api/user'
+import { useNavigate } from 'react-router-dom'
 
 export default function CompletePage() {
   const [stats, setStats] = useState<StatsResponse | null>(null)
+  const navigate = useNavigate()
+  const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     getStats().then(setStats).catch(console.error)
@@ -14,18 +17,15 @@ export default function CompletePage() {
   const handleShare = async () => {
     try {
       await navigator.clipboard.writeText(window.location.origin)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
     } catch {
       console.error('클립보드 복사에 실패했습니다.')
     }
-    onShare()
-  }
-
-  const onShare = () => {
-    alert('공유하기 기능은 곧 제공될 예정입니다.')
   }
 
   const onReview = () => {
-    alert('후기 남기기 기능은 곧 제공될 예정입니다.')
+    navigate('/tribute')
   }
 
   return (
@@ -34,19 +34,41 @@ export default function CompletePage() {
         {/* 이미지 자리 */}
         <Box
           $css={{
-            width: '220px',
-            height: '220px',
-            background: 'var(--vapor-color-gray-200)',
-            borderRadius: '$200',
+            display: 'flex',
+            width: '208px',
+            height: '185px',
+            padding: '24px 8px',
+            alignItems: 'flex-start',
+            gap: '8px',
+            background: '#888',
+            marginTop: '60px',
           }}
         />
 
         {/* 통계 텍스트 */}
         <VStack $css={{ gap: '$100', alignItems: 'center', textAlign: 'center' }}>
-          <Text typography="body3" foreground="warning-100">
+          <Text
+            typography="subtitle2"
+            $css={{
+              color: 'var(--vapor-color-hondi-300)',
+              textAlign: 'center',
+              letterSpacing: 'var(--vapor-typography-letterSpacing-000)',
+            }}
+          >
             지금까지
           </Text>
-          <Text typography="heading2" $css={{ color: 'var(--vapor-color-foreground-warning-100)' }}>
+          <Text
+            $css={{
+              color: 'var(--vapor-color-hondi-400)',
+              textAlign: 'center',
+              fontFamily: 'var(--vapor-typography-fontFamily-sans)',
+              fontSize: '28px',
+              fontStyle: 'normal',
+              fontWeight: 700,
+              lineHeight: 'var(--vapor-typography-lineHeight-400)' /* 128.571% */,
+              letterSpacing: 'var(--vapor-typography-letterSpacing-300)',
+            }}
+          >
             {stats ? `${stats.participantCount.toLocaleString()}명` : '-'}{' '}
             <Text
               typography="heading2"
@@ -55,31 +77,98 @@ export default function CompletePage() {
               이
             </Text>
           </Text>
-          <Text typography="heading2">함께 동백꽃을 피웠습니다</Text>
+          <Text
+            $css={{
+              color: 'var(--vapor-color-foreground-normal-200)',
+              textAlign: 'center',
+              fontFamily: 'var(--vapor-typography-fontFamily-sans)',
+              fontSize: '28px',
+              fontStyle: 'normal',
+              fontWeight: 700,
+              lineHeight: 'var(--vapor-typography-lineHeight-400)',
+              letterSpacing: 'var(--vapor-typography-letterSpacing-300)',
+            }}
+          >
+            함께 동백꽃을 피웠습니다
+          </Text>
         </VStack>
 
         {/* 안내 문구 */}
-        <Text typography="body2" foreground="hint-100" $css={{ textAlign: 'center' }}>
-          동백꽃은 한 송이당 {stats ? stats.pledgeUnitWon.toLocaleString() : '1,000'}원이 되어{'\n'}
-          제주 4·3 유적지 복원 사업을 위해{'\n'}
+        <Text
+          typography="body2"
+          foreground="hint-100"
+          $css={{
+            textAlign: 'center',
+            color: 'var(--vapor-color-gray-400)',
+            fontFamily: 'var(--vapor-typography-fontFamily-sans)',
+            fontSize: 'var(--vapor-typography-fontSize-200)',
+            fontStyle: 'normal',
+            fontWeight: 500,
+            lineHeight: 'var(--vapor-typography-lineHeight-200)',
+            letterSpacing: 'var(--vapor-typography-letterSpacing-000)',
+          }}
+        >
+          동백꽃은 한 송이당 {stats ? stats.pledgeUnitWon.toLocaleString() : '1,000'}원이 되어
+          <br />
+          제주 4·3 유적지 복원 사업을 위해
+          <br />
           전액 기부될 예정입니다
         </Text>
 
         {/* 버튼 영역 */}
         <VStack $css={{ gap: '$200', width: '100%', alignItems: 'center' }}>
-          <Text typography="body3" $css={{ color: 'var(--vapor-color-foreground-warning-100)' }}>
+          <Text
+            typography="body3"
+            $css={{
+              color: 'var(--vapor-color-hondi-300)',
+              textAlign: 'center',
+              fontFamily: 'var(--vapor-typography-fontFamily-sans)',
+              fontSize: 'var(--vapor-typography-fontSize-075)',
+              fontStyle: 'normal',
+              fontWeight: 700,
+              lineHeight: 'var(--vapor-typography-lineHeight-200)',
+              letterSpacing: 'var(--vapor-typography-letterSpacing-100)',
+              marginTop: '68px',
+            }}
+          >
             제주 어르신들의 이야기가 기억에 남는다면
           </Text>
           <Button
-            colorPalette="warning"
             variant="fill"
-            $css={{ width: '100%', borderRadius: '$500' }}
+            $css={{
+              width: '100%',
+              height: '48px',
+              borderRadius: 'var(--vapor-size-borderRadius-300)',
+              fontFamily: 'var(--vapor-typography-fontFamily-sans)',
+              fontSize: 'var(--vapor-typography-fontSize-100)',
+              fontStyle: 'normal',
+              fontWeight: '400',
+              lineHeight: 'var(--vapor-typography-lineHeight-100)',
+              letterSpacing: 'var(--vapor-typography-letterSpacing-100)',
+              color: 'var(--vapor-color-white)',
+            }}
             onClick={onReview}
           >
             후기 남기기
           </Button>
-          <Button variant="ghost" $css={{ width: '100%' }} onClick={handleShare}>
-            공유하기
+          <Button
+            variant="ghost"
+            $css={{
+              width: '100%',
+              height: '48px',
+              borderRadius: 'var(--vapor-size-borderRadius-300)',
+              fontFamily: 'var(--vapor-typography-fontFamily-sans)',
+              fontSize: 'var(--vapor-typography-fontSize-100)',
+              fontStyle: 'normal',
+              fontWeight: '400',
+              lineHeight: 'var(--vapor-typography-lineHeight-100)',
+              letterSpacing: 'var(--vapor-typography-letterSpacing-100)',
+              color: 'var(--vapor-secondary)',
+              backgroundColor: 'var(--vapor-color-gray-100)',
+            }}
+            onClick={handleShare}
+          >
+            {copied ? '링크가 복사되었습니다!' : '공유하기'}
           </Button>
         </VStack>
       </VStack>
