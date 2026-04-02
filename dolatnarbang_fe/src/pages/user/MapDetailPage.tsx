@@ -6,7 +6,7 @@ export default function MapDetailPage() {
   const { siteId } = useParams()
   const navigate = useNavigate()
 
-  const place = places.find((p) => String(p.id) === siteId)
+  const place = places.find((p) => String(p.order) === siteId)
   if (!place) {
     navigate('/map', { replace: true })
     return null
@@ -50,7 +50,7 @@ export default function MapDetailPage() {
                 color: 'var(--vapor-color-hondi-400)',
               }}
             >
-              {place.location}
+              {place.region}
             </Badge>
             <Badge
               shape="pill"
@@ -67,7 +67,7 @@ export default function MapDetailPage() {
                 color: 'var(--vapor-color-green-400)',
               }}
             >
-              {place.category}
+              {place.detailRegion}
             </Badge>
           </HStack>
         </HStack>
@@ -91,9 +91,9 @@ export default function MapDetailPage() {
           <HStack
             style={{ padding: '12px', gap: '3px', backgroundColor: '#EDEDED', borderRadius: '8px' }}
           >
-            <Text typography="subtitle2">{place.memory.narrator}</Text>
+            <Text typography="subtitle2">{place.contributorLabel}</Text>
             <Text typography="subtitle2">ㅣ</Text>
-            <Text typography="subtitle2">{place.memory.title}</Text>
+            <Text typography="subtitle2">{place.title}</Text>
           </HStack>
         </VStack>
       </div>
@@ -115,7 +115,7 @@ export default function MapDetailPage() {
           </Text>
           <div style={{ padding: '14px 12px', backgroundColor: '#EDEDED', borderRadius: '8px' }}>
             <Text typography="subtitle2" $css={{ whiteSpace: 'pre-line' }}>
-              {place.record}
+              {place.acRecord}
             </Text>
           </div>
         </VStack>
@@ -148,7 +148,7 @@ export default function MapDetailPage() {
             color: 'white',
           }}
         >
-          {place.buttonLabel}
+          이야기 듣기
         </Button>
       </div>
     </VStack>

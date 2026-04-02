@@ -1,4 +1,4 @@
-import { Badge, HStack, Text, VStack } from '@vapor-ui/core'
+import { Text, VStack } from '@vapor-ui/core'
 import { useNavigate } from 'react-router-dom'
 import { places } from '../../data/places'
 
@@ -143,24 +143,24 @@ export default function MapPage() {
 
             {/* 마커들 */}
             {places.map((place) => {
-              const pos = markerPositions[place.id]
+              const pos = markerPositions[place.order]
               if (!pos) return null
               // 섬 영역 내부로 좌표 보정 (섬이 전체 컨테이너의 5%~95%, 10%~90% 범위)
               const adjustedX = 5 + pos.x * 0.9
               const adjustedY = 10 + pos.y * 0.8
               return (
                 <MapMarker
-                  key={place.id}
+                  key={place.order}
                   place={place}
                   position={{ x: adjustedX, y: adjustedY }}
-                  onClick={() => navigate(`/map/${place.id}`)}
+                  onClick={() => navigate(`/map/${place.order}`)}
                 />
               )
             })}
           </div>
 
           {/* 장소 목록 */}
-          <VStack $css={{ marginTop: '$400', gap: '$200' }}>
+          {/* <VStack $css={{ marginTop: '$400', gap: '$200' }}>
             <Text
               typography="subtitle1"
               $css={{ color: 'var(--vapor-color-gray-700)', fontWeight: '600' }}
@@ -211,7 +211,7 @@ export default function MapPage() {
                 </HStack>
               </button>
             ))}
-          </VStack>
+          </VStack> */}
         </div>
       </VStack>
     </div>
