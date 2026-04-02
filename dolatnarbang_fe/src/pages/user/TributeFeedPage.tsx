@@ -19,15 +19,7 @@ export default function TributeFeedPage() {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch {
-      // clipboard API 미지원 환경 fallback
-      const textarea = document.createElement('textarea')
-      textarea.value = window.location.origin
-      document.body.appendChild(textarea)
-      textarea.select()
-      document.execCommand('copy')
-      document.body.removeChild(textarea)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      console.error('클립보드 복사에 실패했습니다.')
     }
   }
 
