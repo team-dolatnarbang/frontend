@@ -10,13 +10,7 @@ interface Props {
   onNext: (phone: string) => void
 }
 
-export default function SeniorStep2Phone({
-  totalSteps,
-  currentStep,
-  defaultValue,
-  onBack,
-  onNext,
-}: Props) {
+export default function SeniorStep2Phone({ totalSteps, currentStep, defaultValue, onNext }: Props) {
   const [phone, setPhone] = useState(defaultValue)
 
   return (

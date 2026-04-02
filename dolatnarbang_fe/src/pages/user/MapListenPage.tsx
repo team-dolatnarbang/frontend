@@ -1,20 +1,20 @@
-import { Badge, Box, Button, HStack, IconButton, Text, VStack } from '@vapor-ui/core'
-import {
-  BackPageOutlineIcon,
-  ForwardPageOutlineIcon,
-  PauseOutlineIcon,
-  PlayOutlineIcon,
-} from '@vapor-ui/icons'
+import { Badge, Box, Button, HStack, Text, VStack } from '@vapor-ui/core'
+// import {
+//   BackPageOutlineIcon,
+//   ForwardPageOutlineIcon,
+//   PauseOutlineIcon,
+//   PlayOutlineIcon,
+// } from '@vapor-ui/icons'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { places } from '../../data/places'
 import AudioPlayer from '../../components/AudioPlayer'
 
-function formatTime(seconds: number): string {
-  const m = Math.floor(seconds / 60)
-  const s = Math.floor(seconds % 60)
-  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
-}
+// function formatTime(seconds: number): string {
+//   const m = Math.floor(seconds / 60)
+//   const s = Math.floor(seconds % 60)
+//   return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
+// }
 
 // function getActiveIndex(narration: NarrationLine[], currentTime: number): number {
 //   return narration.findIndex((line) => currentTime >= line.start && currentTime < line.end)
@@ -29,6 +29,7 @@ export default function MapListenPage() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
+  console.log(isPlaying, currentTime, duration)
 
   const place = places.find((p) => String(p.order) === siteId)
 
@@ -52,35 +53,35 @@ export default function MapListenPage() {
 
   const audioUrl = place.elderStory.audioUrl
 
-  const togglePlay = () => {
-    const audio = audioRef.current
-    if (!audio) return
-    if (isPlaying) {
-      audio.pause()
-    } else {
-      audio.play()
-    }
-    setIsPlaying(!isPlaying)
-  }
+  // const togglePlay = () => {
+  //   const audio = audioRef.current
+  //   if (!audio) return
+  //   if (isPlaying) {
+  //     audio.pause()
+  //   } else {
+  //     audio.play()
+  //   }
+  //   setIsPlaying(!isPlaying)
+  // }
 
-  const handleBack = () => {
-    if (!audioRef.current) return
-    audioRef.current.currentTime = Math.max(0, currentTime - 10)
-  }
+  // const handleBack = () => {
+  //   if (!audioRef.current) return
+  //   audioRef.current.currentTime = Math.max(0, currentTime - 10)
+  // }
 
-  const handleForward = () => {
-    if (!audioRef.current) return
-    audioRef.current.currentTime = Math.min(duration, currentTime + 10)
-  }
+  // const handleForward = () => {
+  //   if (!audioRef.current) return
+  //   audioRef.current.currentTime = Math.min(duration, currentTime + 10)
+  // }
 
-  const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!audioRef.current || duration === 0) return
-    const rect = e.currentTarget.getBoundingClientRect()
-    const ratio = (e.clientX - rect.left) / rect.width
-    audioRef.current.currentTime = ratio * duration
-  }
+  // const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
+  //   if (!audioRef.current || duration === 0) return
+  //   const rect = e.currentTarget.getBoundingClientRect()
+  //   const ratio = (e.clientX - rect.left) / rect.width
+  //   audioRef.current.currentTime = ratio * duration
+  // }
 
-  const progress = duration > 0 ? (currentTime / duration) * 100 : 0
+  // const progress = duration > 0 ? (currentTime / duration) * 100 : 0
 
   return (
     <VStack className="flex items-center w-full">
