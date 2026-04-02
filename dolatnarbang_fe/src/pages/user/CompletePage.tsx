@@ -54,17 +54,11 @@ export default function CompletePage() {
       <Box $css={{ maxWidth: '390px', margin: '0 auto', padding: '$400' }}>
         <VStack $css={{ gap: '$400', alignItems: 'center' }}>
           {/* 이미지 자리 */}
-          <Box
-            $css={{
-              display: 'flex',
-              width: '208px',
-              height: '185px',
-              padding: '24px 8px',
-              alignItems: 'flex-start',
-              gap: '8px',
-              background: '#888',
-              marginTop: '60px',
-            }}
+
+          <img
+            src="/images/flower.png"
+            alt="꽃잎"
+            style={{ width: '208px', objectFit: 'contain', marginTop: '60px' }}
           />
 
           {/* 통계 텍스트 */}
