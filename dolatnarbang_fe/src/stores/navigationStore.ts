@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-type Page = 'loading' | 'onboarding' | 'map' | 'detail'
+type Page = 'loading' | 'onboarding' | 'map' | 'detail' | 'listen'
 
 interface NavigationStore {
   page: Page
