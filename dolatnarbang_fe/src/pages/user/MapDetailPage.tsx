@@ -19,7 +19,7 @@ export default function MapDetailPage() {
         style={{
           position: 'relative',
           width: '100%',
-          height: '464px',
+          flex: 1,
           backgroundColor: '#D9D9D9',
           flexShrink: 0,
           overflow: 'hidden',
