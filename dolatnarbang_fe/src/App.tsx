@@ -11,6 +11,7 @@ import SeniorRegisterPage from './pages/senior/SeniorRegisterPage'
 import SeniorEnd from './pages/senior/SeniorEnd'
 import TributePage from './pages/user/TributePage'
 import TributeFeedPage from './pages/user/TributeFeedPage'
+import SeniorPage from './pages/senior/SeniorPage'
 
 export default function App() {
   return (
@@ -29,6 +30,7 @@ export default function App() {
         <Route path="/senior/register" element={<SeniorRegisterPage />} />
         <Route path="/senior/record" element={<SeniorRecordPage />} />
         <Route path="/senior/end" element={<SeniorEnd />} />
+        <Route path="/seniorpage" element={<SeniorPage />} />
       </Routes>
     </BrowserRouter>
   )
