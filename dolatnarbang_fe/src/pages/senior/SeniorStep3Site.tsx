@@ -7,7 +7,7 @@ interface Props {
   totalSteps: number;
   currentStep: number;
   defaultValue: string;
-  onBack: () => void;
+  onBack?: () => void;
   onNext: (siteId: string, siteName: string) => void;
 }
 
