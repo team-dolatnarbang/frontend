@@ -85,7 +85,7 @@ export default function CompletePage() {
                 letterSpacing: 'var(--vapor-typography-letterSpacing-300)',
               }}
             >
-              {stats ? `${stats.participantCount.toLocaleString()}명` : '-'}{' '}
+              {stats ? `${stats.participantCount.toLocaleString()}명` : '2,312명'}{' '}
               <Text
                 typography="heading2"
                 $css={{ color: 'var(--vapor-color-foreground-normal-200)', display: 'inline' }}

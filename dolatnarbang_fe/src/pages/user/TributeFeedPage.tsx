@@ -66,7 +66,7 @@ export default function TributeFeedPage() {
       $css={{
         maxWidth: '375px',
         margin: '0 auto',
-        minHeight: '100vh',
+        minHeight: '80vh',
         position: 'relative',
       }}
     >
