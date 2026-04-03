@@ -1,53 +1,53 @@
-import { useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
-import axios from 'axios'
-import { Box, Button, Text, TextInput, Textarea, VStack } from '@vapor-ui/core'
-import { createTribute } from '../../api/user'
-import { useNavigate } from 'react-router-dom'
+import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
+import { Box, Button, Text, TextInput, Textarea, VStack } from '@vapor-ui/core';
+import { createTribute } from '../../api/user';
+import { useNavigate } from 'react-router-dom';
 
-const MAX_MESSAGE_LENGTH = 300
+const MAX_MESSAGE_LENGTH = 300;
 
 export default function TributePage() {
-  const [nickname, setNickname] = useState('')
-  const [message, setMessage] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const navigate = useNavigate()
+  const [nickname, setNickname] = useState('');
+  const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     if (!nickname.trim()) {
-      setError('닉네임을 입력해주세요.')
-      return
+      setError('닉네임을 입력해주세요.');
+      return;
     }
     if (!message.trim()) {
-      setError('내용을 입력해주세요.')
-      return
+      setError('내용을 입력해주세요.');
+      return;
     }
 
-    setIsLoading(true)
-    setError(null)
+    setIsLoading(true);
+    setError(null);
 
     try {
       await createTribute({
         nickname: nickname.trim(),
         message: message.trim(),
         idempotencyKey: uuidv4(),
-      })
-      navigate('/tribute/feed')
+      });
+      navigate('/tribute/feed');
     } catch (err) {
       if (axios.isAxiosError(err)) {
         if (err.response?.status === 403) {
-          setError('아직 모든 핑을 완료하지 않았습니다. 핑을 완료한 후 다시 시도해주세요.')
+          setError('아직 모든 핑을 완료하지 않았습니다. 핑을 완료한 후 다시 시도해주세요.');
         } else {
-          setError(err.response?.data?.message ?? '오류가 발생했습니다. 다시 시도해주세요.')
+          setError(err.response?.data?.message ?? '오류가 발생했습니다. 다시 시도해주세요.');
         }
       } else {
-        setError('오류가 발생했습니다. 다시 시도해주세요.')
+        setError('오류가 발생했습니다. 다시 시도해주세요.');
       }
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <Box
@@ -123,5 +123,5 @@ export default function TributePage() {
         </Button>
       </Box>
     </Box>
-  )
+  );
 }

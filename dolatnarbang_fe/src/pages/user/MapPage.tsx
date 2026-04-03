@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { places } from '../../data/places'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { places } from '../../data/places';
 
 const markerPositions: Record<number, { x: number; y: number }> = {
   1: { x: 37, y: 55 }, // 관덕정
@@ -8,14 +8,13 @@ const markerPositions: Record<number, { x: number; y: number }> = {
   3: { x: 45, y: 58 }, // 주정 공장
   4: { x: 64, y: 55 }, // 너븐 숭이
   5: { x: 52, y: 50 }, // 수악 주둔소
-}
+};
 
 export default function MapPage() {
-  const navigate = useNavigate()
-  const [selectedId, setSelectedId] = useState('1')
+  const navigate = useNavigate();
+  const [selectedId, setSelectedId] = useState('1');
 
-  const selectedPlace = places.find((p) => p.id === selectedId) ?? places[0]
-  const completedCount = places.filter((p) => p.listenCompleted).length
+  const selectedPlace = places.find((p) => p.id === selectedId) ?? places[0];
 
   return (
     <div
@@ -42,13 +41,13 @@ export default function MapPage() {
           zIndex: 2,
         }}
       >
-<img
-  src="/images/mainLogo/logo2.svg"
-  alt="기억납서"
-  style={{
-    flexShrink: 0,
-  }}
-/>
+        <img
+          src="/images/mainLogo/logo2.svg"
+          alt="기억납서"
+          style={{
+            flexShrink: 0,
+          }}
+        />
         <div
           style={{
             display: 'flex',
@@ -56,17 +55,17 @@ export default function MapPage() {
             gap: '4px',
           }}
         >
-<img
-  src="/images/map/Ellipse.png"
-  alt="설명"
-  style={{
-    width: '20px',
-    height: '20px',
-    borderRadius: '50%',
-    objectFit: 'cover',
-    flexShrink: 0,
-  }}
-/>
+          <img
+            src="/images/map/Ellipse.png"
+            alt="설명"
+            style={{
+              width: '20px',
+              height: '20px',
+              borderRadius: '50%',
+              objectFit: 'cover',
+              flexShrink: 0,
+            }}
+          />
           <span
             style={{
               fontFamily: 'EF_jejudoldam',
@@ -91,21 +90,21 @@ export default function MapPage() {
           zIndex: 1,
         }}
       >
-<img
-  src="/images/map/map.png"
-  alt="제주도 지도"
-  style={{
-    width: '100%',
-    height: '120%',
-    objectFit: 'contain',
-    cursor: 'pointer',
-  }}
-  onClick={() => navigate('/map/1')}
-/>
+        <img
+          src="/images/map/map.png"
+          alt="제주도 지도"
+          style={{
+            width: '100%',
+            height: '120%',
+            objectFit: 'contain',
+            cursor: 'pointer',
+          }}
+          onClick={() => navigate('/map/1')}
+        />
         {/* 위치 마커 */}
         {places.map((place) => {
-          const pos = markerPositions[place.order]
-          const isSelected = place.id === selectedId
+          const pos = markerPositions[place.order];
+          const isSelected = place.id === selectedId;
           return (
             <button
               key={place.id}
@@ -123,14 +122,12 @@ export default function MapPage() {
                 border: 'none',
                 cursor: 'pointer',
                 padding: 0,
-                boxShadow: isSelected
-                  ? '2px 2px 20px 0px rgba(255, 234, 0, 0.9)'
-                  : 'none',
+                boxShadow: isSelected ? '2px 2px 20px 0px rgba(255, 234, 0, 0.9)' : 'none',
                 transition: 'background-color 0.2s, box-shadow 0.2s',
                 zIndex: 10,
               }}
             />
-          )
+          );
         })}
       </div>
 
@@ -264,12 +261,12 @@ export default function MapPage() {
             }}
           >
             {places.map((place) => {
-              const isActive = place.id === selectedId
+              const isActive = place.id === selectedId;
               return (
                 <button
                   key={place.id}
                   onClick={() => {
-                    setSelectedId(place.id)
+                    setSelectedId(place.id);
                   }}
                   style={{
                     display: 'flex',
@@ -310,11 +307,11 @@ export default function MapPage() {
                     {place.title}
                   </span>
                 </button>
-              )
+              );
             })}
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

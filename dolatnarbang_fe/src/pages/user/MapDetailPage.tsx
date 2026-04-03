@@ -1,38 +1,38 @@
-import { Badge, Button, HStack, Text, VStack } from '@vapor-ui/core'
-import { useState } from 'react'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import CompleteModal from '../../components/CompleteModal'
-import { places } from '../../data/places'
+import { Badge, Button, HStack, Text, VStack } from '@vapor-ui/core';
+import { useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import CompleteModal from '../../components/CompleteModal';
+import { places } from '../../data/places';
 
 interface MapDetailLocationState {
   completedModal?: {
-    petalOrder: number
-    siteName: string
-    elderName: string
-    storyTitle?: string
-    isLast?: boolean
-  }
+    petalOrder: number;
+    siteName: string;
+    elderName: string;
+    storyTitle?: string;
+    isLast?: boolean;
+  };
 }
 
 export default function MapDetailPage() {
-  const { siteId } = useParams()
-  const navigate = useNavigate()
-  const location = useLocation()
-  const locationState = location.state as MapDetailLocationState | null
+  const { siteId } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const locationState = location.state as MapDetailLocationState | null;
   const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(
     Boolean(locationState?.completedModal)
-  )
+  );
 
-  const place = places.find((p) => String(p.order) === siteId)
+  const place = places.find((p) => String(p.order) === siteId);
   if (!place) {
-    navigate('/map', { replace: true })
-    return null
+    navigate('/map', { replace: true });
+    return null;
   }
 
   const handleCloseCompleteModal = () => {
-    setIsCompleteModalOpen(false)
-    navigate(location.pathname, { replace: true })
-  }
+    setIsCompleteModalOpen(false);
+    navigate(location.pathname, { replace: true });
+  };
 
   return (
     <>
@@ -198,5 +198,5 @@ export default function MapDetailPage() {
         />
       )}
     </>
-  )
+  );
 }

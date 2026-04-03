@@ -1,15 +1,15 @@
-import { Dialog, Button, Text, VStack } from '@vapor-ui/core'
+import { Dialog, Button, Text, VStack } from '@vapor-ui/core';
 
-const ORDINAL = ['첫', '두', '세', '네', '다섯'] as const
+const ORDINAL = ['첫', '두', '세', '네', '다섯'] as const;
 
 interface CompleteModalProps {
-  open: boolean
-  onClose: () => void
-  petalOrder: number // 1~5
-  siteName: string
-  elderName: string
-  storyTitle?: string
-  isLast?: boolean
+  open: boolean;
+  onClose: () => void;
+  petalOrder: number; // 1~5
+  siteName: string;
+  elderName: string;
+  storyTitle?: string;
+  isLast?: boolean;
 }
 
 export default function CompleteModal({
@@ -20,14 +20,14 @@ export default function CompleteModal({
   elderName,
   isLast = false,
 }: CompleteModalProps) {
-  const subtitle = [siteName, elderName].filter(Boolean).join(' · ')
-  const ordinalLabel = ORDINAL[petalOrder - 1] ?? String(petalOrder)
+  const subtitle = [siteName, elderName].filter(Boolean).join(' · ');
+  const ordinalLabel = ORDINAL[petalOrder - 1] ?? String(petalOrder);
 
   return (
     <Dialog.Root
       open={open}
       onOpenChange={(isOpen) => {
-        if (!isOpen) onClose()
+        if (!isOpen) onClose();
       }}
       modal
     >
@@ -114,5 +114,5 @@ export default function CompleteModal({
         </Dialog.Footer>
       </Dialog.Popup>
     </Dialog.Root>
-  )
+  );
 }

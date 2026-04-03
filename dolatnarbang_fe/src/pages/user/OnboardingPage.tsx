@@ -1,9 +1,9 @@
-import { useState } from 'react'
-import { Box, Button, Text } from '@vapor-ui/core'
-import { useNavigate } from 'react-router-dom'
+import { useState } from 'react';
+import { Box, Button, Text } from '@vapor-ui/core';
+import { useNavigate } from 'react-router-dom';
 
 export default function OnboardingPage() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const slides = [
     {
@@ -14,11 +14,11 @@ export default function OnboardingPage() {
       title: '이야기를 들을수록 \n꽃 한 송이가 피어나요',
       desc: `어르신들의 이야기를 들으며\n제주 4.3 사건의 대해 배워보세요\n동백꽃 한 송이가 완성되면 기업납서가 기부해드려요`,
     },
-  ]
+  ];
 
-  const [current, setCurrent] = useState(0)
+  const [current, setCurrent] = useState(0);
 
-  let startX = 0
+  let startX = 0;
 
   return (
     <div
@@ -49,13 +49,13 @@ export default function OnboardingPage() {
         }}
         onTouchStart={(e) => (startX! = e.touches[0].clientX)}
         onTouchEnd={(e) => {
-          const diff = startX - e.changedTouches[0].clientX
+          const diff = startX - e.changedTouches[0].clientX;
 
           if (diff > 50 && current < slides.length - 1) {
-            setCurrent(current + 1)
+            setCurrent(current + 1);
           }
           if (diff < -50 && current > 0) {
-            setCurrent(current - 1)
+            setCurrent(current - 1);
           }
         }}
       >
@@ -176,5 +176,5 @@ export default function OnboardingPage() {
         </Button>
       </Box>
     </div>
-  )
+  );
 }

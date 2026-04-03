@@ -1,11 +1,11 @@
-import { useNavigate } from 'react-router-dom'
-import { Box, Text, Button, VStack } from '@vapor-ui/core'
-import flowerImg from '../../assets/senior_end_flower.svg'
+import { useNavigate } from 'react-router-dom';
+import { Box, Text, Button, VStack } from '@vapor-ui/core';
+import flowerImg from '../../assets/senior_end_flower.svg';
 
 export default function SeniorEnd() {
-  const navigate = useNavigate()
-  const contributorName = '김정식'
-  const storyTitle = '어린 시절 너븐숭이에서 군인들을\n보고 숨으려고 노력했던 경험'
+  const navigate = useNavigate();
+  const contributorName = '김정식';
+  const storyTitle = '어린 시절 너븐숭이에서 군인들을\n보고 숨으려고 노력했던 경험';
 
   return (
     <Box
@@ -161,5 +161,5 @@ export default function SeniorEnd() {
         </Button>
       </Box>
     </Box>
-  )
+  );
 }

@@ -1,47 +1,47 @@
 export interface Place {
   // uuid
-  id: string
+  id: string;
 
   // 몇번째 마커
-  order: number
+  order: number;
 
   // 이미지
-  imageUrl: string
+  imageUrl: string;
 
   // 뱃지
-  name: string // 메인 이름
-  region: string // 지역 - 제주시
-  detailRegion: string // 기념관, 유적지
+  name: string; // 메인 이름
+  region: string; // 지역 - 제주시
+  detailRegion: string; // 기념관, 유적지
 
-  contributorLabel: string // 시니어 이름
+  contributorLabel: string; // 시니어 이름
 
-  title: string // 제목
+  title: string; // 제목
 
-  acRecord: string // 사건 기록
+  acRecord: string; // 사건 기록
 
   // + 들어보기 page
 
-  subTitle: string // 부제목
-  subImageUrl: string
+  subTitle: string; // 부제목
+  subImageUrl: string;
   // 오디오
-  narrationAudioUrl: string
-  narrationDurationSec: number
+  narrationAudioUrl: string;
+  narrationDurationSec: number;
 
   // 상태
-  unlocked: boolean
-  listenCompleted: boolean
+  unlocked: boolean;
+  listenCompleted: boolean;
 
   // 음성
   elderStory: {
-    audioUrl: string // 오디오
-    Longtext: string // 나레이션
-  }
+    audioUrl: string; // 오디오
+    Longtext: string; // 나레이션
+  };
 
-  acInfoTitle: string // 사건 정보 제목
-  acInfoDate: string // 사건 정보 날짜
-  acInfoText: string // 사건 정보 글
+  acInfoTitle: string; // 사건 정보 제목
+  acInfoDate: string; // 사건 정보 날짜
+  acInfoText: string; // 사건 정보 글
 
-  acImageUrl: string[] // 사건 현장 살펴보기 3개 사진
+  acImageUrl: string[]; // 사건 현장 살펴보기 3개 사진
 }
 
 export const places: Place[] = [
@@ -61,7 +61,7 @@ export const places: Place[] = [
 발포로 주민 6명이 숨졌고, 그것이 4·3의 도화선이 되었습니다.`,
 
     subTitle: '고순희 할머니의 1947년의 기억',
-    subImageUrl:'/images/mapListen/1/main.png',
+    subImageUrl: '/images/mapListen/1/main.png',
 
     narrationAudioUrl: '',
     narrationDurationSec: 0,
@@ -104,7 +104,7 @@ export const places: Place[] = [
 하는 거대한 수용소가 되어 제주 인구 약 3만 명이 희생되었습니다`,
 
     subTitle: `임성배 할아버지의 1948년의 기억`,
-    subImageUrl:'/images/mapListen/2/main.png',
+    subImageUrl: '/images/mapListen/2/main.png',
 
     narrationAudioUrl: '',
     narrationDurationSec: 0,
@@ -150,7 +150,7 @@ export const places: Place[] = [
 끝내 돌아오지 못하고, 6.25직후 보도 연맹학살로 희생되었습니다.`,
 
     subTitle: `양치권 할아버지의 1949년의 기억`,
-    subImageUrl:'/images/mapListen/3/main.png',
+    subImageUrl: '/images/mapListen/3/main.png',
 
     narrationAudioUrl: '',
     narrationDurationSec: 0,
@@ -197,7 +197,7 @@ export const places: Place[] = [
 돌아가지 못한 영혼들이 임시 매장되어 애기무덤으로 남아있습니다`,
 
     subTitle: '고정순 할머니의 1949년의 기억',
-    subImageUrl:'/images/mapListen/4/main.png',
+    subImageUrl: '/images/mapListen/4/main.png',
 
     narrationAudioUrl: '',
     narrationDurationSec: 0,
@@ -247,7 +247,7 @@ export const places: Place[] = [
 군경토벌대는 주민들을 억압하기 위해 수악 주둔소를 세웠습니다`,
 
     subTitle: '양자경 이모의 1949년의 기억',
-    subImageUrl:'/images/mapListen/5/main.png',
+    subImageUrl: '/images/mapListen/5/main.png',
     narrationAudioUrl: '',
     narrationDurationSec: 0,
 
@@ -276,4 +276,4 @@ export const places: Place[] = [
       '/images/mapDetail/5/ac_3.png',
     ],
   },
-]
+];

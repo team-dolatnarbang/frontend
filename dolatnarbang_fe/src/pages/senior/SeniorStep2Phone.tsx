@@ -1,17 +1,17 @@
-import { useState } from 'react'
-import { Box, Button, Text, VStack } from '@vapor-ui/core'
-import StepBar from '../../components/StepBar'
+import { useState } from 'react';
+import { Box, Button, Text, VStack } from '@vapor-ui/core';
+import StepBar from '../../components/StepBar';
 
 interface Props {
-  totalSteps: number
-  currentStep: number
-  defaultValue: string
-  onBack: () => void
-  onNext: (phone: string) => void
+  totalSteps: number;
+  currentStep: number;
+  defaultValue: string;
+  onBack: () => void;
+  onNext: (phone: string) => void;
 }
 
 export default function SeniorStep2Phone({ totalSteps, currentStep, defaultValue, onNext }: Props) {
-  const [phone, setPhone] = useState(defaultValue)
+  const [phone, setPhone] = useState(defaultValue);
 
   return (
     <Box
@@ -86,5 +86,5 @@ export default function SeniorStep2Phone({ totalSteps, currentStep, defaultValue
         </Button>
       </VStack>
     </Box>
-  )
+  );
 }
