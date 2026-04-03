@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Box, Text, VStack, Button } from '@vapor-ui/core';
-import type { TributeItem } from '../../types/tribute';
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Box, Text, VStack, Button } from '@vapor-ui/core'
+import type { TributeItem } from '../../types/tribute'
 
 const MOCK_ITEMS: TributeItem[] = [
   {
@@ -37,29 +37,29 @@ const MOCK_ITEMS: TributeItem[] = [
     camelliaCount: 4,
     createdAt: new Date(Date.now() - 20 * 86400000).toISOString(),
   },
-];
+]
 
 function formatRelativeTime(dateStr: string): string {
-  const date = new Date(dateStr);
-  const now = new Date();
-  const diffDays = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
+  const date = new Date(dateStr)
+  const now = new Date()
+  const diffDays = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24))
 
-  if (diffDays === 0) return '오늘';
-  if (diffDays < 7) return `${diffDays}일전`;
+  if (diffDays === 0) return '오늘'
+  if (diffDays < 7) return `${diffDays}일전`
 
-  const diffWeeks = Math.floor(diffDays / 7);
-  if (diffWeeks < 5) return `${diffWeeks}주전`;
+  const diffWeeks = Math.floor(diffDays / 7)
+  if (diffWeeks < 5) return `${diffWeeks}주전`
 
-  return `${Math.floor(diffDays / 30)}달전`;
+  return `${Math.floor(diffDays / 30)}달전`
 }
 
 export default function TributeFeedPage() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   // const [items, setItems] = useState<TributeItem[]>([])
-  const [items] = useState<TributeItem[]>(MOCK_ITEMS);
-  const [page, setPage] = useState(1);
+  const [items] = useState<TributeItem[]>(MOCK_ITEMS)
+  const [page, setPage] = useState(1)
   // const [totalPages, setTotalPages] = useState(1)
-  const [totalPages] = useState(1);
+  const [totalPages] = useState(1)
 
   return (
     <Box
@@ -226,5 +226,5 @@ export default function TributeFeedPage() {
         </svg>
       </Box>
     </Box>
-  );
+  )
 }

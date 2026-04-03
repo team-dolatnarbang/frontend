@@ -1,35 +1,35 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import SeniorStep1Name from './SeniorStep1Name';
-import SeniorStep2Phone from './SeniorStep2Phone';
-import SeniorStep3Site from './SeniorStep3Site';
-import SeniorStep4Consent from './SeniorStep4Consent';
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import SeniorStep1Name from './SeniorStep1Name'
+import SeniorStep2Phone from './SeniorStep2Phone'
+import SeniorStep3Site from './SeniorStep3Site'
+import SeniorStep4Consent from './SeniorStep4Consent'
 
 type SeniorFormData = {
-  name: string;
-  phone: string;
-  siteId: string;
-  siteName: string;
-};
+  name: string
+  phone: string
+  siteId: string
+  siteName: string
+}
 
-const TOTAL_STEPS = 4;
+const TOTAL_STEPS = 4
 
 export default function SeniorRegisterPage() {
-  const navigate = useNavigate();
-  const [step, setStep] = useState(1);
+  const navigate = useNavigate()
+  const [step, setStep] = useState(1)
   const [formData, setFormData] = useState<SeniorFormData>({
     name: '',
     phone: '',
     siteId: '',
     siteName: '',
-  });
+  })
 
   const next = (patch: Partial<SeniorFormData>) => {
-    setFormData((prev) => ({ ...prev, ...patch }));
-    setStep((s) => s + 1);
-  };
+    setFormData((prev) => ({ ...prev, ...patch }))
+    setStep((s) => s + 1)
+  }
 
-  const back = () => setStep((s) => s - 1);
+  const back = () => setStep((s) => s - 1)
 
   const handleComplete = () => {
     navigate('/senior/record', {
@@ -38,8 +38,8 @@ export default function SeniorRegisterPage() {
         siteId: formData.siteId,
         siteName: formData.siteName,
       },
-    });
-  };
+    })
+  }
 
   return (
     <>
@@ -77,5 +77,5 @@ export default function SeniorRegisterPage() {
         />
       )}
     </>
-  );
+  )
 }

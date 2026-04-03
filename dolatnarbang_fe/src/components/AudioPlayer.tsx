@@ -1,71 +1,71 @@
-import { useState, useRef, useEffect } from 'react';
-import { Box, HStack, Text } from '@vapor-ui/core';
+import { useState, useRef, useEffect } from 'react'
+import { Box, HStack, Text } from '@vapor-ui/core'
 
 interface AudioPlayerProps {
-  src: string;
+  src: string
 }
 
 export default function AudioPlayer({ src }: AudioPlayerProps) {
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const audioRef = useRef<HTMLAudioElement>(null)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [currentTime, setCurrentTime] = useState(0)
+  const [duration, setDuration] = useState(0)
 
   useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
+    const audio = audioRef.current
+    if (!audio) return
 
-    const onTimeUpdate = () => setCurrentTime(audio.currentTime);
-    const onLoadedMetadata = () => setDuration(audio.duration);
-    const onEnded = () => setIsPlaying(false);
+    const onTimeUpdate = () => setCurrentTime(audio.currentTime)
+    const onLoadedMetadata = () => setDuration(audio.duration)
+    const onEnded = () => setIsPlaying(false)
 
-    audio.addEventListener('timeupdate', onTimeUpdate);
-    audio.addEventListener('loadedmetadata', onLoadedMetadata);
-    audio.addEventListener('ended', onEnded);
+    audio.addEventListener('timeupdate', onTimeUpdate)
+    audio.addEventListener('loadedmetadata', onLoadedMetadata)
+    audio.addEventListener('ended', onEnded)
 
     return () => {
-      audio.removeEventListener('timeupdate', onTimeUpdate);
-      audio.removeEventListener('loadedmetadata', onLoadedMetadata);
-      audio.removeEventListener('ended', onEnded);
-    };
-  }, []);
+      audio.removeEventListener('timeupdate', onTimeUpdate)
+      audio.removeEventListener('loadedmetadata', onLoadedMetadata)
+      audio.removeEventListener('ended', onEnded)
+    }
+  }, [])
 
   const togglePlay = () => {
-    const audio = audioRef.current;
-    if (!audio) return;
+    const audio = audioRef.current
+    if (!audio) return
     if (isPlaying) {
-      audio.pause();
+      audio.pause()
     } else {
-      audio.play();
+      audio.play()
     }
-    setIsPlaying((prev) => !prev);
-  };
+    setIsPlaying((prev) => !prev)
+  }
 
   const skipBackward = () => {
-    if (!audioRef.current) return;
-    audioRef.current.currentTime = 0;
-  };
+    if (!audioRef.current) return
+    audioRef.current.currentTime = 0
+  }
 
   const skipForward = () => {
-    if (!audioRef.current) return;
-    audioRef.current.currentTime = duration;
-  };
+    if (!audioRef.current) return
+    audioRef.current.currentTime = duration
+  }
 
   const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const time = Number(e.target.value);
-    if (!audioRef.current) return;
-    audioRef.current.currentTime = time;
-    setCurrentTime(time);
-  };
+    const time = Number(e.target.value)
+    if (!audioRef.current) return
+    audioRef.current.currentTime = time
+    setCurrentTime(time)
+  }
 
   const formatTime = (sec: number) => {
-    if (isNaN(sec)) return '00:00';
-    const m = Math.floor(sec / 60);
-    const s = Math.floor(sec % 60);
-    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-  };
+    if (isNaN(sec)) return '00:00'
+    const m = Math.floor(sec / 60)
+    const s = Math.floor(sec % 60)
+    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
+  }
 
-  const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
+  const progress = duration > 0 ? (currentTime / duration) * 100 : 0
 
   return (
     <Box $css={{ width: '100%', padding: '$300', borderRadius: '$300' }}>
@@ -188,5 +188,5 @@ export default function AudioPlayer({ src }: AudioPlayerProps) {
         </button>
       </HStack>
     </Box>
-  );
+  )
 }

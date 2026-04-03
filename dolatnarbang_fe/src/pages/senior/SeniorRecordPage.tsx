@@ -1,122 +1,122 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Box, Text, VStack } from '@vapor-ui/core';
-import { uploadContributionAudio } from '../../api/senior';
+import { useState, useRef, useEffect, useCallback } from 'react'
+import { useLocation } from 'react-router-dom'
+import { Box, Text, VStack } from '@vapor-ui/core'
+import { uploadContributionAudio } from '../../api/senior'
 
-const MAX_DURATION_SEC = 120;
+const MAX_DURATION_SEC = 120
 
-type RecordState = 'idle' | 'recording' | 'uploading' | 'done';
+type RecordState = 'idle' | 'recording' | 'uploading' | 'done'
 
 interface LocationState {
-  contributorName?: string;
-  siteId?: string;
-  siteName?: string;
+  contributorName?: string
+  siteId?: string
+  siteName?: string
 }
 
 export default function SeniorRecordPage() {
-  const location = useLocation();
+  const location = useLocation()
   const {
     contributorName = '',
     siteId = '',
     siteName = '',
-  } = (location.state as LocationState) ?? {};
+  } = (location.state as LocationState) ?? {}
 
-  const [recordState, setRecordState] = useState<RecordState>('idle');
-  const [elapsed, setElapsed] = useState(0);
-  const [error, setError] = useState<string | null>(null);
+  const [recordState, setRecordState] = useState<RecordState>('idle')
+  const [elapsed, setElapsed] = useState(0)
+  const [error, setError] = useState<string | null>(null)
 
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const chunksRef = useRef<Blob[]>([]);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const audioBlobRef = useRef<Blob | null>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null)
+  const chunksRef = useRef<Blob[]>([])
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const audioBlobRef = useRef<Blob | null>(null)
 
   useEffect(() => {
     return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, []);
+      if (timerRef.current) clearInterval(timerRef.current)
+    }
+  }, [])
 
   const submit = useCallback(
     async (blob: Blob, durationSec: number) => {
-      setRecordState('uploading');
-      setError(null);
+      setRecordState('uploading')
+      setError(null)
       try {
-        const audioFile = new File([blob], 'recording.webm', { type: blob.type });
+        const audioFile = new File([blob], 'recording.webm', { type: blob.type })
         await uploadContributionAudio({
           contributorName,
           siteId,
           audio: audioFile,
           durationSec,
-        });
-        setRecordState('done');
+        })
+        setRecordState('done')
       } catch {
-        setError('업로드에 실패했습니다. 잠시 후 다시 시도해 주세요.');
-        setRecordState('idle');
+        setError('업로드에 실패했습니다. 잠시 후 다시 시도해 주세요.')
+        setRecordState('idle')
       }
     },
     [contributorName, siteId]
-  );
+  )
 
   const startRecording = useCallback(async () => {
     try {
-      setError(null);
-      setElapsed(0);
+      setError(null)
+      setElapsed(0)
 
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const mediaRecorder = new MediaRecorder(stream);
-      mediaRecorderRef.current = mediaRecorder;
-      chunksRef.current = [];
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      const mediaRecorder = new MediaRecorder(stream)
+      mediaRecorderRef.current = mediaRecorder
+      chunksRef.current = []
 
       mediaRecorder.ondataavailable = (e) => {
-        if (e.data.size > 0) chunksRef.current.push(e.data);
-      };
+        if (e.data.size > 0) chunksRef.current.push(e.data)
+      }
 
       mediaRecorder.onstop = () => {
-        stream.getTracks().forEach((t) => t.stop());
-        const blob = new Blob(chunksRef.current, { type: 'audio/webm' });
-        audioBlobRef.current = blob;
+        stream.getTracks().forEach((t) => t.stop())
+        const blob = new Blob(chunksRef.current, { type: 'audio/webm' })
+        audioBlobRef.current = blob
         // 멈추는 시점의 elapsed는 onstop 호출 전 timerRef에서 이미 정리됨
         // elapsed state를 직접 읽기 어려우므로 ref로 전달
-        submit(blob, elapsedRef.current);
-      };
+        submit(blob, elapsedRef.current)
+      }
 
-      mediaRecorder.start();
-      setRecordState('recording');
+      mediaRecorder.start()
+      setRecordState('recording')
 
-      let elapsedCount = 0;
+      let elapsedCount = 0
       timerRef.current = setInterval(() => {
-        elapsedCount += 1;
-        elapsedRef.current = elapsedCount;
-        setElapsed(elapsedCount);
+        elapsedCount += 1
+        elapsedRef.current = elapsedCount
+        setElapsed(elapsedCount)
         if (elapsedCount >= MAX_DURATION_SEC) {
-          clearInterval(timerRef.current!);
-          timerRef.current = null;
-          mediaRecorderRef.current?.stop();
+          clearInterval(timerRef.current!)
+          timerRef.current = null
+          mediaRecorderRef.current?.stop()
         }
-      }, 1000);
+      }, 1000)
     } catch {
-      setError('마이크 접근 권한이 필요합니다. 브라우저 설정을 확인해 주세요.');
+      setError('마이크 접근 권한이 필요합니다. 브라우저 설정을 확인해 주세요.')
     }
-  }, [submit]);
+  }, [submit])
 
-  const elapsedRef = useRef(0);
+  const elapsedRef = useRef(0)
 
   const stopRecording = useCallback(() => {
     if (timerRef.current) {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
+      clearInterval(timerRef.current)
+      timerRef.current = null
     }
-    mediaRecorderRef.current?.stop();
-  }, []);
+    mediaRecorderRef.current?.stop()
+  }, [])
 
   const formatTime = (sec: number) => {
-    const m = Math.floor(sec / 60);
-    const s = sec % 60;
-    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-  };
+    const m = Math.floor(sec / 60)
+    const s = sec % 60
+    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
+  }
 
-  const isRecording = recordState === 'recording';
-  const isUploading = recordState === 'uploading';
+  const isRecording = recordState === 'recording'
+  const isUploading = recordState === 'uploading'
 
   if (recordState === 'done') {
     return (
@@ -138,7 +138,7 @@ export default function SeniorRecordPage() {
           </Text>
         </VStack>
       </Box>
-    );
+    )
   }
 
   return (
@@ -235,7 +235,7 @@ export default function SeniorRecordPage() {
         </button>
       </Box>
     </Box>
-  );
+  )
 }
 
 // import { useState, useRef, useEffect, useCallback } from 'react'

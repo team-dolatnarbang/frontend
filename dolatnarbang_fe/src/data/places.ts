@@ -1,47 +1,47 @@
 export interface Place {
   // uuid
-  id: string;
+  id: string
 
   // 몇번째 마커
-  order: number;
+  order: number
 
   // 이미지
-  imageUrl: string;
+  imageUrl: string
 
   // 뱃지
-  name: string; // 메인 이름
-  region: string; // 지역 - 제주시
-  detailRegion: string; // 기념관, 유적지
+  name: string // 메인 이름
+  region: string // 지역 - 제주시
+  detailRegion: string // 기념관, 유적지
 
-  contributorLabel: string; // 시니어 이름
+  contributorLabel: string // 시니어 이름
 
-  title: string; // 제목
+  title: string // 제목
 
-  acRecord: string; // 사건 기록
+  acRecord: string // 사건 기록
 
   // + 들어보기 page
 
-  subTitle: string; // 부제목
-  subImageUrl: string;
+  subTitle: string // 부제목
+  subImageUrl: string
   // 오디오
-  narrationAudioUrl: string;
-  narrationDurationSec: number;
+  narrationAudioUrl: string
+  narrationDurationSec: number
 
   // 상태
-  unlocked: boolean;
-  listenCompleted: boolean;
+  unlocked: boolean
+  listenCompleted: boolean
 
   // 음성
   elderStory: {
-    audioUrl: string; // 오디오
-    Longtext: string; // 나레이션
-  };
+    audioUrl: string // 오디오
+    Longtext: string // 나레이션
+  }
 
-  acInfoTitle: string; // 사건 정보 제목
-  acInfoDate: string; // 사건 정보 날짜
-  acInfoText: string; // 사건 정보 글
+  acInfoTitle: string // 사건 정보 제목
+  acInfoDate: string // 사건 정보 날짜
+  acInfoText: string // 사건 정보 글
 
-  acImageUrl: string[]; // 사건 현장 살펴보기 3개 사진
+  acImageUrl: string[] // 사건 현장 살펴보기 3개 사진
 }
 
 export const places: Place[] = [
@@ -276,4 +276,4 @@ export const places: Place[] = [
       '/images/mapDetail/5/ac_3.png',
     ],
   },
-];
+]

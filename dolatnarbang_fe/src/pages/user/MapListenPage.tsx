@@ -1,32 +1,32 @@
-import { Badge, Box, Button, HStack, Text, VStack } from '@vapor-ui/core';
-import { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { places } from '../../data/places';
-import AudioPlayer from '../../components/AudioPlayer';
+import { Badge, Box, Button, HStack, Text, VStack } from '@vapor-ui/core'
+import { useEffect, useRef, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { places } from '../../data/places'
+import AudioPlayer from '../../components/AudioPlayer'
 
 export default function MapListenPage() {
-  const { siteId } = useParams();
-  const navigate = useNavigate();
+  const { siteId } = useParams()
+  const navigate = useNavigate()
 
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
-  console.log(currentTime, duration, isPlaying);
+  const audioRef = useRef<HTMLAudioElement>(null)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [currentTime, setCurrentTime] = useState(0)
+  const [duration, setDuration] = useState(0)
+  console.log(currentTime, duration, isPlaying)
 
-  const place = places.find((p) => String(p.order) === siteId);
+  const place = places.find((p) => String(p.order) === siteId)
 
   useEffect(() => {
-    if (!place) navigate('/map', { replace: true });
-  }, [place, navigate]);
+    if (!place) navigate('/map', { replace: true })
+  }, [place, navigate])
 
-  if (!place) return null;
+  if (!place) return null
 
-  const currentIndex = places.findIndex((p) => String(p.order) === siteId);
-  const isLastPlace = currentIndex === places.length - 1;
-  const nextPlace = places[currentIndex + 1];
+  const currentIndex = places.findIndex((p) => String(p.order) === siteId)
+  const isLastPlace = currentIndex === places.length - 1
+  const nextPlace = places[currentIndex + 1]
 
-  const audioUrl = place.elderStory.audioUrl;
+  const audioUrl = place.elderStory.audioUrl
 
   return (
     <VStack className="flex items-center w-full">
@@ -151,5 +151,5 @@ export default function MapListenPage() {
         </Button>
       </VStack>
     </VStack>
-  );
+  )
 }

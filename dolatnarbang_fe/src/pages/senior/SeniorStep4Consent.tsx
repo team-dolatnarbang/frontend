@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { Box, Button, Checkbox, HStack, Text, VStack } from '@vapor-ui/core';
-import StepBar from '../../components/StepBar';
+import { useState } from 'react'
+import { Box, Button, Checkbox, HStack, Text, VStack } from '@vapor-ui/core'
+import StepBar from '../../components/StepBar'
 
 interface ConsentItem {
-  id: string;
-  label: string;
-  description: string;
-  required: boolean;
+  id: string
+  label: string
+  description: string
+  required: boolean
 }
 
 const CONSENTS: ConsentItem[] = [
@@ -28,33 +28,33 @@ const CONSENTS: ConsentItem[] = [
     description: '데이터를 통해 추가 콘텐츠를 제작하는데 사용합니다',
     required: false,
   },
-];
+]
 
 interface Props {
-  totalSteps: number;
-  currentStep: number;
-  onBack: () => void;
-  onComplete: () => void;
+  totalSteps: number
+  currentStep: number
+  onBack: () => void
+  onComplete: () => void
 }
 
 export default function SeniorStep4Consent({ totalSteps, currentStep, onBack, onComplete }: Props) {
-  const [checked, setChecked] = useState<Record<string, boolean>>({});
+  const [checked, setChecked] = useState<Record<string, boolean>>({})
 
-  const allChecked = CONSENTS.every((c) => checked[c.id]);
-  const someChecked = CONSENTS.some((c) => checked[c.id]);
-  const requiredChecked = CONSENTS.filter((c) => c.required).every((c) => checked[c.id]);
+  const allChecked = CONSENTS.every((c) => checked[c.id])
+  const someChecked = CONSENTS.some((c) => checked[c.id])
+  const requiredChecked = CONSENTS.filter((c) => c.required).every((c) => checked[c.id])
 
   const toggleAll = () => {
     if (allChecked) {
-      setChecked({});
+      setChecked({})
     } else {
-      setChecked(Object.fromEntries(CONSENTS.map((c) => [c.id, true])));
+      setChecked(Object.fromEntries(CONSENTS.map((c) => [c.id, true])))
     }
-  };
+  }
 
   const toggle = (id: string) => {
-    setChecked((prev) => ({ ...prev, [id]: !prev[id] }));
-  };
+    setChecked((prev) => ({ ...prev, [id]: !prev[id] }))
+  }
 
   return (
     <Box
@@ -176,5 +176,5 @@ export default function SeniorStep4Consent({ totalSteps, currentStep, onBack, on
         </Button>
       </VStack>
     </Box>
-  );
+  )
 }

@@ -1,8 +1,8 @@
-import { Button } from '@vapor-ui/core';
-import { useNavigate } from 'react-router-dom';
+import { Button } from '@vapor-ui/core'
+import { useNavigate } from 'react-router-dom'
 
 export default function RootPage() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return (
     <div
@@ -68,5 +68,5 @@ export default function RootPage() {
         시작하기
       </Button>
     </div>
-  );
+  )
 }

@@ -1,20 +1,20 @@
-import { useState } from 'react';
-import { Box, Button, Text, VStack } from '@vapor-ui/core';
-import StepBar from '../../components/StepBar';
-import { useSites } from '../../hooks/useSites';
+import { useState } from 'react'
+import { Box, Button, Text, VStack } from '@vapor-ui/core'
+import StepBar from '../../components/StepBar'
+import { useSites } from '../../hooks/useSites'
 
 interface Props {
-  totalSteps: number;
-  currentStep: number;
-  defaultValue: string;
-  onBack?: () => void;
-  onNext: (siteId: string, siteName: string) => void;
+  totalSteps: number
+  currentStep: number
+  defaultValue: string
+  onBack?: () => void
+  onNext: (siteId: string, siteName: string) => void
 }
 
 export default function SeniorStep3Site({ totalSteps, currentStep, defaultValue, onNext }: Props) {
-  const [selectedId, setSelectedId] = useState(defaultValue);
-  const { data, isLoading, isError } = useSites();
-  const sites = data?.sites ?? [];
+  const [selectedId, setSelectedId] = useState(defaultValue)
+  const { data, isLoading, isError } = useSites()
+  const sites = data?.sites ?? []
 
   return (
     <Box
@@ -66,7 +66,7 @@ export default function SeniorStep3Site({ totalSteps, currentStep, defaultValue,
             {!isLoading &&
               !isError &&
               sites.map((site) => {
-                const isSelected = selectedId === site.id;
+                const isSelected = selectedId === site.id
                 return (
                   <button
                     key={site.id}
@@ -90,7 +90,7 @@ export default function SeniorStep3Site({ totalSteps, currentStep, defaultValue,
                   >
                     {site.name}
                   </button>
-                );
+                )
               })}
           </Box>
         </VStack>
@@ -116,13 +116,13 @@ export default function SeniorStep3Site({ totalSteps, currentStep, defaultValue,
           }}
           disabled={!selectedId || isLoading || isError || sites.length === 0}
           onClick={() => {
-            const site = sites.find((s) => s.id === selectedId);
-            if (site) onNext(site.id, site.name);
+            const site = sites.find((s) => s.id === selectedId)
+            if (site) onNext(site.id, site.name)
           }}
         >
           다음
         </Button>
       </VStack>
     </Box>
-  );
+  )
 }

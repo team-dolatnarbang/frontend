@@ -1,11 +1,11 @@
-import { create } from 'zustand';
+import { create } from 'zustand'
 
-type Page = 'loading' | 'onboarding' | 'map' | 'detail' | 'listen';
+type Page = 'loading' | 'onboarding' | 'map' | 'detail' | 'listen'
 
 interface NavigationStore {
-  page: Page;
-  selectedPlaceId: number;
-  goTo: (page: Page, placeId?: number) => void;
+  page: Page
+  selectedPlaceId: number
+  goTo: (page: Page, placeId?: number) => void
 }
 
 export const useNavigationStore = create<NavigationStore>((set) => ({
@@ -16,4 +16,4 @@ export const useNavigationStore = create<NavigationStore>((set) => ({
       page,
       selectedPlaceId: placeId ?? state.selectedPlaceId,
     })),
-}));
+}))

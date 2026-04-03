@@ -1,16 +1,16 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import RootPage from './pages/user/RootPage';
-import OnboardingPage from './pages/user/OnboardingPage';
-import MapPage from './pages/user/MapPage';
-import MapDetailPage from './pages/user/MapDetailPage';
-import MapListenPage from './pages/user/MapListenPage';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import RootPage from './pages/user/RootPage'
+import OnboardingPage from './pages/user/OnboardingPage'
+import MapPage from './pages/user/MapPage'
+import MapDetailPage from './pages/user/MapDetailPage'
+import MapListenPage from './pages/user/MapListenPage'
 // import MapDetailPageEnd from './pages/user/MapDetailPageEnd'
-import CompletePage from './pages/user/CompletePage';
-import SeniorRecordPage from './pages/senior/SeniorRecordPage';
-import SeniorRegisterPage from './pages/senior/SeniorRegisterPage';
-import SeniorEnd from './pages/senior/SeniorEnd';
-import TributePage from './pages/user/TributePage';
-import TributeFeedPage from './pages/user/TributeFeedPage';
+import CompletePage from './pages/user/CompletePage'
+import SeniorRecordPage from './pages/senior/SeniorRecordPage'
+import SeniorRegisterPage from './pages/senior/SeniorRegisterPage'
+import SeniorEnd from './pages/senior/SeniorEnd'
+import TributePage from './pages/user/TributePage'
+import TributeFeedPage from './pages/user/TributeFeedPage'
 
 export default function App() {
   return (
@@ -31,5 +31,5 @@ export default function App() {
         <Route path="/senior/end" element={<SeniorEnd />} />
       </Routes>
     </BrowserRouter>
-  );
+  )
 }

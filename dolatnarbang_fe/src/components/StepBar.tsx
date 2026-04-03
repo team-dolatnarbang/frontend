@@ -1,8 +1,8 @@
-import { HStack, Box } from '@vapor-ui/core';
+import { HStack, Box } from '@vapor-ui/core'
 
 interface StepBarProps {
-  total: number;
-  current: number;
+  total: number
+  current: number
 }
 
 export default function StepBar({ total, current }: StepBarProps) {
@@ -21,5 +21,5 @@ export default function StepBar({ total, current }: StepBarProps) {
         />
       ))}
     </HStack>
-  );
+  )
 }

@@ -1,53 +1,53 @@
-import { useState, useEffect } from 'react';
-import { Box, Button, Text, VStack } from '@vapor-ui/core';
+import { useState, useEffect } from 'react'
+import { Box, Button, Text, VStack } from '@vapor-ui/core'
 
-import type { StatsResponse } from '../../types/stats';
-import { getStats } from '../../api/user';
-import { useLocation, useNavigate } from 'react-router-dom';
-import CompleteModal from '../../components/CompleteModal';
+import type { StatsResponse } from '../../types/stats'
+import { getStats } from '../../api/user'
+import { useLocation, useNavigate } from 'react-router-dom'
+import CompleteModal from '../../components/CompleteModal'
 
 interface CompletePageLocationState {
   completedModal?: {
-    petalOrder: number;
-    siteName: string;
-    elderName: string;
-    storyTitle?: string;
-    isLast?: boolean;
-  };
+    petalOrder: number
+    siteName: string
+    elderName: string
+    storyTitle?: string
+    isLast?: boolean
+  }
 }
 
 export default function CompletePage() {
-  const [stats, setStats] = useState<StatsResponse | null>(null);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const locationState = location.state as CompletePageLocationState | null;
-  const [copied, setCopied] = useState(false);
+  const [stats, setStats] = useState<StatsResponse | null>(null)
+  const navigate = useNavigate()
+  const location = useLocation()
+  const locationState = location.state as CompletePageLocationState | null
+  const [copied, setCopied] = useState(false)
   const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(
     Boolean(locationState?.completedModal)
-  );
+  )
 
   useEffect(() => {
-    getStats().then(setStats).catch(console.error);
-  }, []);
+    getStats().then(setStats).catch(console.error)
+  }, [])
 
   const handleShare = async () => {
     try {
-      await navigator.clipboard.writeText(window.location.origin);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      await navigator.clipboard.writeText(window.location.origin)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
     } catch {
-      console.error('클립보드 복사에 실패했습니다.');
+      console.error('클립보드 복사에 실패했습니다.')
     }
-  };
+  }
 
   const onReview = () => {
-    navigate('/tribute/feed');
-  };
+    navigate('/tribute/feed')
+  }
 
   const handleCloseCompleteModal = () => {
-    setIsCompleteModalOpen(false);
-    navigate(location.pathname, { replace: true });
-  };
+    setIsCompleteModalOpen(false)
+    navigate(location.pathname, { replace: true })
+  }
 
   return (
     <>
@@ -202,5 +202,5 @@ export default function CompletePage() {
         />
       )}
     </>
-  );
+  )
 }
