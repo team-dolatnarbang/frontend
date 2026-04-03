@@ -4,14 +4,13 @@ import { useNavigate } from 'react-router-dom'
 export default function RootPage() {
   const navigate = useNavigate()
 
-  // 2초 후 자동 이동
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     navigate('/onboarding')
-  //   }, 2000)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate('/onboarding')
+    }, 2000)
 
-  //   return () => clearTimeout(timer)
-  // }, [navigate])
+    return () => clearTimeout(timer)
+  }, [navigate])
 
   return (
     <div
