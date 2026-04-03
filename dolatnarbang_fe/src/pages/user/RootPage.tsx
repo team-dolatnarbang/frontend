@@ -1,16 +1,8 @@
-import { useEffect } from 'react'
+import { Button } from '@vapor-ui/core'
 import { useNavigate } from 'react-router-dom'
 
 export default function RootPage() {
   const navigate = useNavigate()
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      navigate('/onboarding')
-    }, 2000)
-
-    return () => clearTimeout(timer)
-  }, [navigate])
 
   return (
     <div
@@ -22,7 +14,7 @@ export default function RootPage() {
 
         display: 'flex',
         flexDirection: 'column',
-        // alignItems: 'center',
+        alignItems: 'center',
         // justifyContent: 'center',
       }}
     >
@@ -55,6 +47,26 @@ export default function RootPage() {
           }}
         />
       </div>
+      <Button
+        size="xl"
+        onClick={() => navigate('/onboarding')}
+        $css={{
+          width: '335px',
+
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: 'var(--vapor-button-gap)',
+
+          borderRadius: 'var(--vapor-size-borderRadius-300)',
+          background: 'var(--vapor-color-hondi-400)',
+
+          color: 'white',
+          marginTop: '367px',
+        }}
+      >
+        시작하기
+      </Button>
     </div>
   )
 }
