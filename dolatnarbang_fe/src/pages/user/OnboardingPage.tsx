@@ -35,9 +35,9 @@ export default function OnboardingPage() {
       {/* 상단 이미지 */}
       <div style={{ width: '100%', height: 421, overflow: 'hidden' }}>
         <img
-          src="/images/onboarding_illustration.png"
-          alt=""
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          src="/images/onboarding.png"
+          alt="온보딩 이미지"
+          style={{ width: '100%', height: '100%', objectFit: 'contain', marginTop: '20px' }}
         />
       </div>
 
@@ -137,44 +137,44 @@ export default function OnboardingPage() {
         ))}
       </div>
 
-{/* CTA 영역 */}
-<Box
-  $css={{
-    display: 'flex',
-    width: '100%',
-    maxWidth: '375px', // 반응형 대응
+      {/* CTA 영역 */}
+      <Box
+        $css={{
+          display: 'flex',
+          width: '100%',
+          maxWidth: '375px', // 반응형 대응
 
-    height: '151px',
-    padding: '16px 20px',
+          height: '151px',
+          padding: '16px 20px',
 
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: '8px',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '8px',
 
-    flexShrink: 0,
-  }}
->
-  <Button
-    size="xl"
-    onClick={() => navigate('/map')}
-    $css={{
-      width: '100%',
+          flexShrink: 0,
+        }}
+      >
+        <Button
+          size="xl"
+          onClick={() => navigate('/map')}
+          $css={{
+            width: '100%',
 
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      gap: 'var(--vapor-button-gap)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: 'var(--vapor-button-gap)',
 
-      borderRadius: 'var(--vapor-size-borderRadius-300)',
-      background: 'var(--vapor-color-hondi-400)',
+            borderRadius: 'var(--vapor-size-borderRadius-300)',
+            background: 'var(--vapor-color-hondi-400)',
 
-      color: 'white',
-    }}
-  >
-    시작하기
-  </Button>
-</Box>
+            color: 'white',
+          }}
+        >
+          시작하기
+        </Button>
+      </Box>
     </div>
   )
 }
