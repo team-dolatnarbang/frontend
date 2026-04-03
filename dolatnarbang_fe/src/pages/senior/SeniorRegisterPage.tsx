@@ -65,7 +65,6 @@ export default function SeniorRegisterPage() {
           totalSteps={TOTAL_STEPS}
           currentStep={step}
           defaultValue={formData.siteId}
-          onBack={back}
           onNext={(siteId, siteName) => next({ siteId, siteName })}
         />
       )}
